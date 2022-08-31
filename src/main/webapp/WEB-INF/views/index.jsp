@@ -3,10 +3,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../views/header.jsp"/>
-<section class="stats">
+<section id="how-it-works" class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>13</em>
+            <em>${totalQuantity}</em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -14,7 +14,7 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em>${totalDonations}</em>
             <h3>Przekazanych darów</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -52,7 +52,7 @@
     <a href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
-<section class="about-us">
+<section id="about-us" class="about-us">
     <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
@@ -63,7 +63,7 @@
     </div>
 </section>
 
-<section class="help">
+<section id="institutions" class="help">
     <h2>Komu pomagamy?</h2>
 
     <!-- SLIDE 1 -->
@@ -72,32 +72,33 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
-
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
-
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
-
-            </li>
-
+            <c:forEach items="${institutions}" var="institution" varStatus="status">
+                <c:if test="${status.index %2 == 0}">
+                    <li>
+                        <div class="col">
+                            <div class="title">Fundacja "${institution.name}"</div>
+                            <div class="subtitle">Cel i misja: ${institution.description}</div>
+                        </div>
+                </c:if>
+                <c:if test="${status.index %2 != 0}">
+                        <div class="col">
+                            <div class="title">Fundacja "${institution.name}"</div>
+                            <div class="subtitle">Cel i misja: ${institution.description}</div>
+                        </div>
+                    </li>
+                </c:if>
+            </c:forEach>
         </ul>
-    </div>
+<%--        <nav aria-label="Page navigation example">--%>
+<%--            <ul class="pagination">--%>
 
+<%--                <li class="page-item"><a class="page-link" href="#">Previous</a></li>--%>
+
+<%--                <li class="page-item"><a class="page-link" href="#">1</a></li>--%>
+
+<%--                <li class="page-item"><a class="page-link" href="#">Next</a></li>--%>
+<%--            </ul>--%>
+<%--        </nav>--%>
+<%--    </div>--%>
 </section>
 <jsp:include page="../views/footer.jsp"/>

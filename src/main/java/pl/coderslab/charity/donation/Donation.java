@@ -9,7 +9,10 @@ import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -24,11 +27,13 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotNull
     private Integer quantity;
-    @OneToMany
+    @NotNull
+    @ManyToMany
     private List<Category> categories;
-    @OneToOne
+    @NotNull
+    @ManyToOne
     private Institution institution;
     @NotBlank
     private String street;
@@ -36,9 +41,14 @@ public class Donation {
     private String city;
     @NotBlank
     private String zipCode;
+    @NotBlank
+    private String phoneNumber;
+    @NotNull
+    @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
-    @DateTimeFormat(pattern = "hh:mm aa")
+    @NotNull
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpTime;
 
     private String pickUpComment;
