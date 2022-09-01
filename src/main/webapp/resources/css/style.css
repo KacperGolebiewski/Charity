@@ -1342,11 +1342,18 @@ header nav ul li:last-of-type {
   text-align: center;
 }
 
+.text-error {
+  font-size: 1.75rem;
+  line-height: 1em;
+  font-family: sans-serif;
+  color: crimson;
+}
+
 /* line 16, scss/modules/homepage-sections/_about-us.scss */
 .about-us--text p {
   width: 70%;
   font-size: 2.2rem;
-  line-height: 2em;
+  line-height: 1em;
 }
 
 /* line 22, scss/modules/homepage-sections/_about-us.scss */
@@ -1492,6 +1499,8 @@ header nav ul li:last-of-type {
   font-size: 1.2rem;
   margin-top: 20px;
 }
+
+.text
 
 /* line 96, scss/modules/homepage-sections/_help.scss */
 .help--slides-pagination {
