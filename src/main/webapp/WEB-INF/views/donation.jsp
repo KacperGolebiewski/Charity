@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:include page="../views/header.jsp"/>
+<jsp:include page="../views/header-form.jsp"/>
 <div class="slogan container container--90">
   <div class="slogan--item">
     <h1>
@@ -59,8 +59,6 @@
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
-<%--                  <form:checkboxes items="${categories}"  element="div class='form-group form-group--inline '" path="categories" itemLabel="name" itemValue="id" />--%>
-
               <c:forEach items="${categories}" var="category">
               <div class="form-group form-group--checkbox">
                 <label>
