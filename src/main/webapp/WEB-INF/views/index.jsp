@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="../views/header.jsp"/>
 <section id="how-it-works" class="stats">
     <div class="container container--85">
@@ -48,8 +49,9 @@
             <p>kurier przyjedzie w dogodnym terminie</p>
         </div>
     </div>
-
+<sec:authorize access="!isAuthenticated()">
     <a href="<c:url value="${pageContext.request.contextPath}/register"/>" class="btn btn--large">Załóż konto</a>
+</sec:authorize>
 </section>
 
 <section id="about-us" class="about-us">

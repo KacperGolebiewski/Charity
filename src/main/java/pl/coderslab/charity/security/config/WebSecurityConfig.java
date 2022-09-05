@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated().and().formLogin().loginPage("/login")
                 .usernameParameter("email").passwordParameter("password")
                 .permitAll()
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/donation")
                 .and().logout().logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .permitAll()

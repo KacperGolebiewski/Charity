@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -12,23 +13,28 @@
   <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/style.css"/>"/>
 </head>
 <body>
-<header class="header--form-page">
-  <nav class="container container--70">
-    <ul class="nav--actions">
-      <li class="logged-user">
-        <ul class="dropdown">
-          <li><a href="#">Profil</a></li>
-          <li><a href="#">Moje zbiórki</a></li>
-          <li><a href="#">Wyloguj</a></li>
-        </ul>
-      </li>
-    </ul>
+<sec:authorize access="isAuthenticated()">
+  <header class="header--form-page">
+    <nav class="container container--70">
+      <ul class="nav--actions">
+        <li class="logged-user">
+          Witaj
+          <sec:authentication property="principal.firstName"/>
+          <ul class="dropdown">
+            <li><a href="#">Profil</a></li>
+            <li><a href="#">Moje zbiórki</a></li>
+            <li><a href="#">Wyloguj</a></li>
+          </ul>
+        </li>
+      </ul>
 
-    <ul>
-      <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
-      <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-      <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-      <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-      <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
-    </ul>
-  </nav>
+      <ul>
+        <li><a href="<c:url value="${pageContext.request.contextPath}/"/>" class="btn btn--without-border">Start</a></li>
+        <li><a href="<c:url value="${pageContext.request.contextPath}/#how-it-works"/>" class="btn btn--without-border">O co chodzi?</a></li>
+        <li><a href="<c:url value="${pageContext.request.contextPath}/#about-us" />" class="btn btn--without-border">O nas</a></li>
+        <li><a href="<c:url value="${pageContext.request.contextPath}/#institutions"/>" class="btn btn--without-border">Fundacje i organizacje</a></li>
+        <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>" class="btn btn--without-border  active">Przekaż dary</a></li>
+        <li><a href="<c:url value="${pageContext.request.contextPath}/#contact"/>" class="btn btn--without-border">Kontakt</a></li>
+      </ul>
+    </nav>
+</sec:authorize>
