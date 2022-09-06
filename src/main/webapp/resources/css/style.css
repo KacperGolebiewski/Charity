@@ -1519,9 +1519,9 @@ header nav ul li:last-of-type {
 }
 
 /* line 1, scss/modules/_footer.scss */
-footer {
-  min-height: 80vh;
+footer{
   background-image: url(../images/footer-bg.jpg);
+  min-height: 80vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1540,6 +1540,12 @@ footer {
           justify-content: space-between;
   position: relative;
 }
+.admin {
+  background-image: none;!important;
+  text-align: center;!important;
+
+}
+
 
 /* line 13, scss/modules/_footer.scss */
 footer .contact {

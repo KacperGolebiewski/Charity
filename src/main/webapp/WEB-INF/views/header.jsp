@@ -50,6 +50,9 @@
                 Witaj
                 <sec:authentication property="principal.firstName"/>
                 <ul class="dropdown">
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                    <li><a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard"/>">Admin</a></li>
+                    </sec:authorize>
                     <li><a href="<c:url value="${pageContext.request.contextPath}/user/details"/>">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
                     <li>
@@ -71,11 +74,13 @@
             </sec:authorize>
                 <li><a href="<c:url value="${pageContext.request.contextPath}/#how-it-works"/>" class="btn btn--without-border">O co chodzi?</a></li>
                 <li><a href="<c:url value="${pageContext.request.contextPath}/#about-us" />" class="btn btn--without-border">O nas</a></li>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/#institutions"/>" class="btn btn--without-border">Fundacje i organizacje</a></li>
             <sec:authorize access="!isAuthenticated()">
-                <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>" class="btn btn--without-border">Przekaż dary</a></li>
+            <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>" class="btn btn--without-border">Przekaż dary</a></li>
             </sec:authorize>
+                <li><a href="<c:url value="${pageContext.request.contextPath}/#institutions"/>" class="btn btn--without-border">Fundacje i organizacje</a></li>
                 <li><a href="<c:url value="${pageContext.request.contextPath}/#contact"/>" class="btn btn--without-border">Kontakt</a></li>
+
+
         </ul>
     </nav>
         <sec:authorize access="!isAuthenticated()">

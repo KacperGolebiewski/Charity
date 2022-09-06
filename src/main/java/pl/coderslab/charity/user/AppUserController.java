@@ -41,7 +41,6 @@ public class AppUserController {
         tempUser.setFirstName(user.getFirstName());
         tempUser.setLastName(user.getLastName());
         tempUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        System.out.println(tempUser.toString());
 
         appUserRepository.updateUser(tempUser.getFirstName(),tempUser.getLastName(), tempUser.getPassword(), tempUser.getEmail());
 
