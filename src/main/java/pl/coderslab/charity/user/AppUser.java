@@ -1,9 +1,6 @@
 package pl.coderslab.charity.user;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +9,12 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
-@Getter
 @Setter
+@Getter
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
+@ToString
 public class AppUser implements UserDetails {
 
 
@@ -41,6 +39,10 @@ public class AppUser implements UserDetails {
         this.appUserRole = appUserRole;
     }
 
+    public AppUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
@@ -57,6 +59,7 @@ public class AppUser implements UserDetails {
     public String getUsername() {
         return email;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -85,4 +88,5 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
 }

@@ -25,8 +25,19 @@
 </c:otherwise>
 </c:choose>
 </sec:authorize>
+
 <sec:authorize access="isAuthenticated()">
-            <header class="header--form-page">
+    <c:choose>
+    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/user/details'}">
+        <header>
+    </c:when>
+        <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/user/details/edit'}">
+        <header>
+            </c:when>
+    <c:otherwise>
+        <header class="header--form-page">
+    </c:otherwise>
+        </c:choose>
 </sec:authorize>
     <nav class="container container--70">
         <ul class="nav--actions">
@@ -39,7 +50,7 @@
                 Witaj
                 <sec:authentication property="principal.firstName"/>
                 <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
+                    <li><a href="<c:url value="${pageContext.request.contextPath}/user/details"/>">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
                     <li>
                         <form action="<c:url value="/logout"/>" method="post">
@@ -92,6 +103,8 @@
                     </h2>
                 </div>
             </c:when>
+                <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/user/details'}"></c:when>
+                <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/user/details/edit'}"></c:when>
             <c:otherwise>
                 <div class="slogan container container--90">
                     <div class="slogan--item">

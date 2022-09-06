@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <input type="password" name="password" placeholder="Hasło" />
-          <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+          <a href="<c:url value="${pageContext.request.contextPath}/password-recover"/>" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
         <div class="form-group form-group--buttons">
