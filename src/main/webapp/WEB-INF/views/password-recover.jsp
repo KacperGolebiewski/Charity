@@ -5,7 +5,7 @@
 <jsp:include page="../views/header.jsp"/>
 <section class="login-page">
   <h2>Podaj email w celu przypomnienia hasła:</h2>
-  <form method="post" action="/password-recover">
+  <form method="post" action="<c:url value="${pageContext.request.contextPath}/password-recover"/>">
     <div class="form-group">
       <input type="email" name="email" placeholder="Email" />
     </div>
