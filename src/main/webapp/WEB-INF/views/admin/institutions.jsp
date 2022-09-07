@@ -18,7 +18,11 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Nazwa</th>
+                                <th scope="col">
+                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${currentPage}?sortField=name&sortDir=${reverseSortDir}"/>"><i
+                                            class="fa fa-fw fa-sort"></i></a>
+                                    <span>Nazwa Fundacji</span>
+                                </th>
                                 <th scope="col">Opis</th>
                                 <th scope="col">
                                     <div align="middle">
@@ -58,7 +62,7 @@
                     <c:when test="${currentPage > 1}">
                         <li class="page-item">
                             <a class="page-link"
-                               href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${currentPage-1}"/>">Previous</a>
+                               href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
                         </li>
                     </c:when>
                     <c:otherwise>
@@ -71,7 +75,7 @@
                     <c:choose>
                         <c:when test="${currentPage != status.index}">
                             <li class="page-item"><a class="page-link"
-                                                     href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${status.index}"/>">${status.index}</a>
+                                                     href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -83,7 +87,7 @@
                     <c:when test="${currentPage < totalPages}">
                         <li class="page-item">
                             <a class="page-link"
-                               href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${currentPage+1}"/>">Next</a>
+                               href="<c:url value="${pageContext.request.contextPath}/admin/institutions/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
                         </li>
                     </c:when>
                     <c:otherwise>

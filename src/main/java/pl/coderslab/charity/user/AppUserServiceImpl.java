@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -63,10 +64,12 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
 
 
     @Override
-    public Page<AppUser> findUsersPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+    public Page<AppUser> findUsersPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.appUserRepository.findAll(pageable);
     }
+
 
     @Override
     public Page<AppUser> findAdminsPaginated(int pageNo, int pageSize) {

@@ -4,5 +4,5 @@ import org.springframework.data.domain.Page;
 
 public interface InstitutionService {
 
-    Page<Institution> findAllPaginated(int pageNo, int pageSize);
+    Page<Institution> findAllPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }

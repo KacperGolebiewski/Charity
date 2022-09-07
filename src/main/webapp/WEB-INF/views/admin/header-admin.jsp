@@ -23,6 +23,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href=
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+
 </head>
 <body>
 <header class="py-xl-5">
@@ -85,9 +89,10 @@
                     <%--              <c:otherwise>--%>
                 <li><a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/1"/>"
                        class="btn btn--without-border">Zarządzaj adminami</a></li>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/users/1" />"
+                <li>
+                    <a href="<c:url value="${pageContext.request.contextPath}/admin/users/1?sortField=firstName&sortDir=asc"/>"
                        class="btn btn--without-border">Zarządzaj użytkownikami</a></li>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/institutions/1"/>"
+                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/institutions/1?sortField=name&sortDir=asc"/>"
                        class="btn btn--without-border">Zarządzaj fundacjami</a></li>
                 <li><a href="<c:url value="${pageContext.request.contextPath}/admin/categories"/>"
                        class="btn btn--without-border">Zarządzaj kategoriami</a></li>
