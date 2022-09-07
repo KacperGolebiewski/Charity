@@ -29,15 +29,15 @@ public class DonationController {
     @GetMapping
     String addDonation(Model model) {
         model.addAttribute("donation", new Donation());
-        model.addAttribute("categories",categoryRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
         return "user/donation";
     }
 
     @PostMapping
     String saveDonation(Model model, @Valid Donation donation, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("categories",categoryRepository.findAll());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
             model.addAttribute("institutions", institutionRepository.findAll());
             return "user/donation";
         }
@@ -48,7 +48,7 @@ public class DonationController {
     @GetMapping("/confirmation")
     String showConfirmation(Model model) {
         model.addAttribute("donation", new Donation());
-        model.addAttribute("categories",categoryRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
         return "user/donation-confirmation";
     }

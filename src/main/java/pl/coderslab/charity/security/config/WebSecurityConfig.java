@@ -11,14 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import pl.coderslab.charity.user.AppUserService;
+import pl.coderslab.charity.user.AppUserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AppUserService appUserService;
+    private final AppUserServiceImpl appUserServiceImpl;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationSuccessHandler successHandler;
 
@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers( "/donation/**", "/user/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/register/**", "/", "/resources/**","/password-recover").permitAll()
+                .antMatchers("/donation/**", "/user/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/register/**", "/", "/resources/**", "/password-recover").permitAll()
                 .anyRequest()
                 .authenticated().and().formLogin().loginPage("/login")
                 .usernameParameter("email").passwordParameter("password")
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(appUserService);
+        provider.setUserDetailsService(appUserServiceImpl);
         return provider;
     }
 }

@@ -9,7 +9,7 @@ import pl.coderslab.charity.registration.token.ConfirmationToken;
 import pl.coderslab.charity.registration.token.ConfirmationTokenService;
 import pl.coderslab.charity.user.AppUser;
 import pl.coderslab.charity.user.AppUserRole;
-import pl.coderslab.charity.user.AppUserService;
+import pl.coderslab.charity.user.AppUserServiceImpl;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistrationService {
 
-    private final AppUserService appUserService;
+    private final AppUserServiceImpl appUserServiceImpl;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
@@ -29,7 +29,7 @@ public class RegistrationService {
             throw new IllegalStateException("email not valid");
         }
 
-        String token = appUserService.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_USER)
+        String token = appUserServiceImpl.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_USER)
         );
 
         String link = "http://localhost:8080/register/confirm/" + token;
@@ -52,7 +52,7 @@ public class RegistrationService {
         }
 
         confirmationTokenService.setConfirmedAt(token);
-        appUserService.enableAppUser(confirmationToken.getAppUser().getEmail());
+        appUserServiceImpl.enableAppUser(confirmationToken.getAppUser().getEmail());
         return "confirmed";
     }
 

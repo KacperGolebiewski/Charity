@@ -12,6 +12,5 @@ public interface InstitutionRepository extends JpaRepository<Institution, Long> 
 
 
 
-    Page<Institution> findAll(Pageable pageable);
     List<Institution> findAll();
 }

@@ -15,6 +15,7 @@ import pl.coderslab.charity.user.AppUserRepository;
 public class PasswordRecoveryController {
 
     private final AppUserRepository appUserRepository;
+
     @GetMapping
     public String recoverPassword() {
         return "log-reg/password-recover";

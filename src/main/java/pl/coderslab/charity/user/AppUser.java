@@ -18,7 +18,6 @@ import java.util.Collections;
 public class AppUser implements UserDetails {
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
