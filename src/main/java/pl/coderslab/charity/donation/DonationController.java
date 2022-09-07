@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.category.CategoryRepository;
 import pl.coderslab.charity.institution.InstitutionRepository;
 
@@ -32,7 +31,7 @@ public class DonationController {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories",categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
-        return "donation";
+        return "user/donation";
     }
 
     @PostMapping
@@ -40,7 +39,7 @@ public class DonationController {
         if(bindingResult.hasErrors()) {
             model.addAttribute("categories",categoryRepository.findAll());
             model.addAttribute("institutions", institutionRepository.findAll());
-            return "donation";
+            return "user/donation";
         }
         donationRepository.save(donation);
         return "redirect:/donation/confirmation";
@@ -51,7 +50,7 @@ public class DonationController {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories",categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
-        return "donation-confirmation";
+        return "user/donation-confirmation";
     }
 
 

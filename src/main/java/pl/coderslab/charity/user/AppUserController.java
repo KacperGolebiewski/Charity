@@ -24,14 +24,14 @@ public class AppUserController {
     String userDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user", appUserRepository.findByEmail(auth.getName()).orElse(null));
-        return "profile";
+        return "user/profile";
     }
 
     @GetMapping("/details/edit")
     String userDetailsUpdate(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("appUser", appUserRepository.findByEmail(auth.getName()).orElse(null));
-        return "profile-update";
+        return "user/profile-update";
     }
 
     @PostMapping("/details/edit")
@@ -42,7 +42,7 @@ public class AppUserController {
         tempUser.setLastName(user.getLastName());
         tempUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        appUserRepository.updateUser(tempUser.getFirstName(),tempUser.getLastName(), tempUser.getPassword(), tempUser.getEmail());
+        appUserRepository.save(tempUser);
 
         return "redirect:/user/details";
     }

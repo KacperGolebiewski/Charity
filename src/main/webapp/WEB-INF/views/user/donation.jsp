@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:include page="../views/header.jsp"/>
+<jsp:include page="../header.jsp"/>
     <section class="form--steps">
       <div class="form--steps-instructions">
         <div class="form--steps-container">
@@ -191,4 +191,4 @@
         </form:form>
       </div>
     </section>
-<jsp:include page="../views/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>

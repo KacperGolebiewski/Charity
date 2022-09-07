@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:include page="../views/header.jsp"/>
+<jsp:include page="../header.jsp"/>
     <section class="login-page">
       <h2>Załóż konto</h2>
       <%--@elvariable id="request" type="pl.coderslab.charity.registration.RegistrationRequest"--%>
@@ -26,4 +26,4 @@
         </div>
       </form:form>
     </section>
-<jsp:include page="../views/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>

@@ -17,7 +17,7 @@ public class PasswordRecoveryController {
     private final AppUserRepository appUserRepository;
     @GetMapping
     public String recoverPassword() {
-        return "password-recover";
+        return "log-reg/password-recover";
     }
 
     @PostMapping
