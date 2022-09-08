@@ -8,11 +8,11 @@
     <div class="container-custom py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Dodaj Kategorię</strong></span>
+                <span><strong>Edytuj Kategorię</strong></span>
             </div>
             <div class="card-body">
                 <form:form modelAttribute="category">
-                    <div class="form-group">
+                    <div class="form-group ">
                         <form:input type="text" path="name" placeholder="Nazwa" />
                         <span class="text-error">
                        <form:errors  path="name"/>

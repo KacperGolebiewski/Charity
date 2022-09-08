@@ -2,6 +2,9 @@ package pl.coderslab.charity.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,9 +14,12 @@ import pl.coderslab.charity.category.CategoryRepository;
 import pl.coderslab.charity.donation.DonationRepository;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
+import pl.coderslab.charity.registration.RegistrationRequest;
+import pl.coderslab.charity.registration.RegistrationService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,6 +30,10 @@ public class AdminController {
     private final CategoryRepository categoryRepository;
     private final AppUserService appUserService;
     private final DonationRepository donationRepository;
+    private final AppUserRepository appUserRepository;
+    private final RegistrationService registrationService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @GetMapping("/dashboard")
     public String viewDashboardPage(Model model) {
@@ -41,12 +51,6 @@ public class AdminController {
     }
 
 
-//    @GetMapping("/messages")
-//    public String viewMessagesPage(Model model) {
-//        return adminMessages(1, "firstName", "asc", model);
-//    }
-
-
     @GetMapping("/dashboard/{pageNo}")
     String adminDashboard(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
         int pageSize = 10;
@@ -61,7 +65,62 @@ public class AdminController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("admins", admins);
-        return "admin/dashboard";
+        return "admin/admins/dashboard";
+    }
+
+    @GetMapping("/dashboard/add")
+    String adminAdd(Model model) {
+        model.addAttribute("request", new RegistrationRequest());
+        return "admin/admins/add-admin";
+    }
+
+    @PostMapping("/dashboard/add")
+    String adminSave(@Valid @ModelAttribute("request") RegistrationRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/admins/add-admin";
+        }
+        registrationService.registerAdmin(request);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/dashboard/edit/{id}")
+    String adminEdit(@PathVariable long id, Model model) {
+        model.addAttribute("admin", appUserRepository.findById(id).orElse(null));
+        return "admin/admins/edit-admin";
+    }
+
+    @PostMapping("/dashboard/edit/{id}")
+    String adminUpdate(@PathVariable long id,@Valid @ModelAttribute("admin") AppUser admin, BindingResult bindingResult) {
+        AppUser appUser = appUserRepository.findById(id).get();
+        if (bindingResult.hasErrors()) {
+            return "admin/admins/edit-admin";
+        }
+        appUser.setFirstName(admin.getFirstName());
+        appUser.setLastName(admin.getLastName());
+        appUser.setEmail(admin.getEmail());
+        appUser.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        appUser.setEnabled(admin.getEnabled());
+        appUser.setLocked(admin.getLocked());
+        appUserRepository.save(appUser);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/dashboard/confirm-delete/{id}")
+    String adminConfirmDelete(@PathVariable long id, Model model) {
+        model.addAttribute("admin", appUserRepository.findById(id).orElse(null));
+        model.addAttribute("id", id);
+        return "admin/admins/delete-admin";
+    }
+
+    @GetMapping("/dashboard/delete/{id}")
+    String adminDelete(@PathVariable long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
+            throw new IllegalStateException("Cannot delete currently logged admin");
+        } else {
+            appUserRepository.deleteById(id);
+        }
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/users/{pageNo}")
@@ -113,7 +172,7 @@ public class AdminController {
     }
 
     @PostMapping("/categories/add")
-    String adminCategoriesSave(Model model, @Valid Category category, BindingResult bindingResult) {
+    String adminCategoriesSave(@Valid Category category, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/categories/add-category";
         }
@@ -128,7 +187,7 @@ public class AdminController {
     }
 
     @PostMapping("/categories/edit/{id}")
-    String adminCategoriesUpdate(Model model, @Valid Category category, BindingResult bindingResult) {
+    String adminCategoriesUpdate(@Valid Category category, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/categories/edit-category";
         }
@@ -138,14 +197,15 @@ public class AdminController {
 
     @GetMapping("/categories/confirm-delete/{id}")
     String adminCategoriesConfirmDelete(@PathVariable long id, Model model) {
-        model.addAttribute("category", categoryRepository.findById(id).orElse(null));
         model.addAttribute("id", id);
         return "admin/categories/delete-category";
     }
 
     @GetMapping("/categories/delete/{id}")
     String adminCategoriesDelete(@PathVariable long id) {
-        if (donationRepository.findDonationByCategoryId(id)!=null) {
+
+        // TODO zmienic tu nie dziala tak ja powinno
+        if (donationRepository.findDonationByCategoryId(id) != null) {
             throw new IllegalStateException("Category has been assigned to donation, cannot be deleted");
         } else {
             categoryRepository.deleteById(id);

@@ -37,6 +37,21 @@ public class RegistrationService {
         return token;
     }
 
+    public String registerAdmin(RegistrationRequest request) {
+        boolean isValidEmail = emailValidator.test(request.getEmail());
+
+        if (!isValidEmail) {
+            throw new IllegalStateException("email not valid");
+        }
+
+        String token = appUserServiceImpl.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_ADMIN)
+        );
+
+        String link = "http://localhost:8080/register/confirm/" + token;
+        emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+        return token;
+    }
+
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token).orElseThrow(() -> new IllegalStateException("token not found"));

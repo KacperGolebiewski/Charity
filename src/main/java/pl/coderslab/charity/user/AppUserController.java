@@ -20,6 +20,7 @@ public class AppUserController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
+
     @GetMapping("/details")
     String userDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

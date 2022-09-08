@@ -13,11 +13,11 @@
       <div class="card-body">
         <a style="font-size: 1.5rem;!important;"
            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
-           href="<c:url value="/admin/categories/delete/${id}"/>"><i
+           href="<c:url value="/admin/dashboard/delete/${id}"/>"><i
                 class="align-middle fa fa-trash px-2 text-sm me-2"></i>Usuń</a>
         <a style="font-size: 1.5rem;!important;"
            class="btn btn-link text-dark px-3 mb-0 py-2"
-           href="<c:url value="/admin/categories"/>"><i
+           href="<c:url value="/admin/dashboard"/>"><i
                 class="align-middle fa fa-arrow-alt-circle-left px-2 text-sm me-2"></i>Powrót</a>
       </div>
     </div>
