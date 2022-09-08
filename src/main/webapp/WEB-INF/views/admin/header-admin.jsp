@@ -87,16 +87,16 @@
                     <%--                  <li><a href="<c:url value="${pageContext.request.contextPath}/admin/messages"/>" class="btn btn--without-border active">Wiadomości</a></li>--%>
                     <%--              </c:when>--%>
                     <%--              <c:otherwise>--%>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/1"/>"
+                <li><a href="<c:url value="/admin/dashboard"/>"
                        class="btn btn--without-border">Zarządzaj adminami</a></li>
                 <li>
-                    <a href="<c:url value="${pageContext.request.contextPath}/admin/users/1?sortField=firstName&sortDir=asc"/>"
+                    <a href="<c:url value="/admin/users"/>"
                        class="btn btn--without-border">Zarządzaj użytkownikami</a></li>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/institutions/1?sortField=name&sortDir=asc"/>"
+                <li><a href="<c:url value="/admin/institutions"/>"
                        class="btn btn--without-border">Zarządzaj fundacjami</a></li>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/categories"/>"
+                <li><a href="<c:url value="/admin/categories"/>"
                        class="btn btn--without-border">Zarządzaj kategoriami</a></li>
-                <li><a href="<c:url value="${pageContext.request.contextPath}/admin/messages/1"/>"
+                <li><a href="<c:url value="/admin/messages"/>"
                        class="btn btn--without-border">Wiadomości</a></li>
             </ul>
         </nav>

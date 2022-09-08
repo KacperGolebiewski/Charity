@@ -18,9 +18,21 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Imię</th>
-                                <th scope="col">Nazwisko</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">
+                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=firstName&sortDir=${reverseSortDir}"/>"><i
+                                            class="fa fa-fw fa-sort"></i></a>
+                                    <span>Imię</span>
+                                </th>
+                                <th scope="col">
+                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=lastName&sortDir=${reverseSortDir}"/>"><i
+                                            class="fa fa-fw fa-sort"></i></a>
+                                    <span>Nazwisko</span>
+                                </th>
+                                <th scope="col">
+                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=email&sortDir=${reverseSortDir}"/>"><i
+                                            class="fa fa-fw fa-sort"></i></a>
+                                    <span>Email</span>
+                                </th>
                                 <th scope="col">Zablokowany</th>
                                 <th scope="col">Aktywny</th>
                                 <th scope="col">
@@ -63,7 +75,7 @@
                         <c:when test="${currentPage > 1}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage-1}"/>">Previous</a>
+                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -76,7 +88,7 @@
                         <c:choose>
                             <c:when test="${currentPage != status.index}">
                                 <li class="page-item"><a class="page-link"
-                                                         href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${status.index}"/>">${status.index}</a>
+                                                         href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -88,7 +100,7 @@
                         <c:when test="${currentPage < totalPages}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage+1}"/>">Next</a>
+                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
                             </li>
                         </c:when>
                         <c:otherwise>

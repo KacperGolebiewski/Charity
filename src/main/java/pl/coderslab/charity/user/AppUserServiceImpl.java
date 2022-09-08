@@ -72,8 +72,9 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
 
 
     @Override
-    public Page<AppUser> findAdminsPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-        return this.appUserRepository.findAdmins(pageable);
+    public Page<AppUser> findAdminsPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.appUserRepository.findAdmins(AppUserRole.ROLE_ADMIN,pageable);
     }
 }

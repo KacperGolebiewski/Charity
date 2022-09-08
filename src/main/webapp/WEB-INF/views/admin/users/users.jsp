@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<jsp:include page="header-admin.jsp"/>
+<jsp:include page="../header-admin.jsp"/>
 <div class="body flex-grow-1 px-3 py-5" style="font-size: 1.5rem;!important;">
     <div class="container py-5">
         <div class="card mb-4">
@@ -110,4 +110,4 @@
             </ul>
         </nav>
         </c:if>
-<jsp:include page="footer-admin.jsp"/>
+<jsp:include page="../footer-admin.jsp"/>
