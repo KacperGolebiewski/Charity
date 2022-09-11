@@ -19,6 +19,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Nazwa</th>
+                                <th scope="col">Aktywny</th>
                                 <th scope="col">
                                     <div align="middle">
                                         <span>Akcje</span>
@@ -30,6 +31,7 @@
                             <c:forEach items="${categories}" var="category">
                                 <tr>
                                     <td>${category.name}</td>
+                                    <td>${category.active}</td>
                                     <td align="right">
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"

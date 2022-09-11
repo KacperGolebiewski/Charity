@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryRepository;
+import pl.coderslab.charity.donation.Donation;
 import pl.coderslab.charity.donation.DonationRepository;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
@@ -95,13 +96,9 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/admins/edit-admin";
         }
-        appUser.setFirstName(admin.getFirstName());
-        appUser.setLastName(admin.getLastName());
-        appUser.setEmail(admin.getEmail());
-        appUser.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
-        appUser.setEnabled(admin.getEnabled());
-        appUser.setLocked(admin.getLocked());
-        appUserRepository.save(appUser);
+        admin.setAppUserRole(appUser.getAppUserRole());
+        admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        appUserRepository.save(admin);
         return "redirect:/admin/dashboard";
     }
 
@@ -203,13 +200,25 @@ public class AdminController {
 
     @GetMapping("/categories/delete/{id}")
     String adminCategoriesDelete(@PathVariable long id) {
-
-        // TODO zmienic tu nie dziala tak ja powinno
-        if (donationRepository.findDonationByCategoryId(id) != null) {
-            throw new IllegalStateException("Category has been assigned to donation, cannot be deleted");
+        if (!donationRepository.findDonationByCategoryId(id).isEmpty()) {
+            return "redirect:/admin/categories/confirm-archive/"+id;
         } else {
             categoryRepository.deleteById(id);
         }
+        return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/categories/confirm-archive/{id}")
+    String adminCategoriesConfirmArchive(@PathVariable long id, Model model) {
+        model.addAttribute("id", id);
+        return "admin/categories/archive-category";
+    }
+
+    @GetMapping("/categories/archive/{id}")
+    String adminCategoriesArchive(@PathVariable long id) {
+        Category category = categoryRepository.findById(id).get();
+        category.setActive(false);
+        categoryRepository.save(category);
         return "redirect:/admin/categories";
     }
 

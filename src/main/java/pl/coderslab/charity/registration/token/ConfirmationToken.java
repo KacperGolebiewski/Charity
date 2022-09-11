@@ -3,6 +3,8 @@ package pl.coderslab.charity.registration.token;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import pl.coderslab.charity.user.AppUser;
 
 import javax.persistence.*;
@@ -31,6 +33,7 @@ public class ConfirmationToken {
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "app_user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AppUser appUser;
 
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, AppUser appUser) {

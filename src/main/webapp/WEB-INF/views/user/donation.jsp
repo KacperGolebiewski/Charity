@@ -33,7 +33,8 @@
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
               <c:forEach items="${categories}" var="category">
-              <div class="form-group form-group--checkbox">
+                <c:if test="${category.active}">
+                <div class="form-group form-group--checkbox">
                 <label>
                   <form:checkbox path="categories"  cssClass="checkbox" value="${category.id}" id="category"/>
 <%--                  <span class="checkbox"></span>--%>
@@ -42,6 +43,7 @@
                 </span>
                 </label>
               </div>
+                </c:if>
             </c:forEach>
             <div class="form-group form-group--checkbox">
             <span class="text-error">

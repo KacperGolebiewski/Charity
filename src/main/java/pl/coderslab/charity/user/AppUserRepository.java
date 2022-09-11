@@ -22,9 +22,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     @Query("select t from AppUser t where t.appUserRole = ?1")
     Page<AppUser> findAdmins(AppUserRole role, Pageable pageable);
 
-//    @Query(nativeQuery = true, value = "select * from charity_donation.app_user t where t.app_user_role = 'ROLE_ADMIN'")
-//    Iterable<AppUser> findAdmins(Sort sort);
-
 
     @Transactional
     @Modifying

@@ -13,15 +13,25 @@
             <div class="card-body">
                 <form:form modelAttribute="category">
                     <div class="form-group ">
-                        <form:input type="text" path="name" placeholder="Nazwa" />
+                        <form:input type="text" path="name" placeholder="Nazwa"/>
                         <span class="text-error">
-                       <form:errors  path="name"/>
+                       <form:errors path="name"/>
+                    </span>
+                    </div>
+                    <div class="form-group ">
+                        <span class="description">
+                  <div class="title">Aktywny:</div>
+                </span>
+                        <form:checkbox path="active" placeholder="Nazwa"/>
+                        <span class="text-error">
+                       <form:errors path="active"/>
                     </span>
                     </div>
 
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit">Zapisz</button>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit">Zapisz
+                        </button>
                     </div>
                 </form:form>
             </div>

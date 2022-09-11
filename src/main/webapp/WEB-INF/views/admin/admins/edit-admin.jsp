@@ -39,13 +39,13 @@
                 <div class="form-group form-group--checkbox">
                     <div class="title">Aktywny</div>
                     <label>
-                        <form:checkbox path="enabled" cssClass="checkbox" value="${admin.enabled}" id="institution"/><span class="description"></span>
+                        <form:checkbox path="enabled" cssClass="checkbox" value="${admin.enabled}" id="enabled"/><span class="description"></span>
                     </label>
                 </div>
                     <div class="form-group form-group--checkbox">
                         <div class="title">Zablokowany</div>
                         <label>
-                            <form:checkbox path="enabled" cssClass="checkbox" value="${admin.enabled}" id="institution"/><span class="description"></span>
+                            <form:checkbox path="locked" cssClass="checkbox" value="${admin.locked}" id="locked"/><span class="description"></span>
                         </label>
                     </div>
                 <div class="form-group ">
