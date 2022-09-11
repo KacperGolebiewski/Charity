@@ -13,6 +13,9 @@
             <div class="form-group form-group--50">
                 <input type="text" name="surname" placeholder="Nazwisko"/>
             </div>
+            <div class="form-group">
+                <textarea name="email" placeholder="Email"></textarea>
+            </div>
 
             <div class="form-group">
                 <textarea name="message" placeholder="Wiadomość" rows="1"></textarea>

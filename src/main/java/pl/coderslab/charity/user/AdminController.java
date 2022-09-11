@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryRepository;
-import pl.coderslab.charity.donation.Donation;
 import pl.coderslab.charity.donation.DonationRepository;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionService;
@@ -20,7 +19,6 @@ import pl.coderslab.charity.registration.RegistrationService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -91,10 +89,16 @@ public class AdminController {
     }
 
     @PostMapping("/dashboard/edit/{id}")
-    String adminUpdate(@PathVariable long id,@Valid @ModelAttribute("admin") AppUser admin, BindingResult bindingResult) {
+    String adminUpdate(@PathVariable long id, @Valid @ModelAttribute("admin") AppUser admin, BindingResult bindingResult) {
+
         AppUser appUser = appUserRepository.findById(id).get();
         if (bindingResult.hasErrors()) {
             return "admin/admins/edit-admin";
+        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getName().equals(appUser.getEmail())) {
+            admin.setEnabled(appUser.getEnabled());
+            admin.setLocked(appUser.getLocked());
         }
         admin.setAppUserRole(appUser.getAppUserRole());
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
@@ -136,6 +140,57 @@ public class AdminController {
 
         model.addAttribute("users", users);
         return "admin/users/users";
+    }
+
+    @GetMapping("/users/add")
+    String adminUserAdd(Model model) {
+        model.addAttribute("request", new RegistrationRequest());
+        return "admin/users/add-user";
+    }
+
+    @PostMapping("/users/add")
+    String adminUserSave(@Valid @ModelAttribute("request") RegistrationRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/users/add-user";
+        }
+        registrationService.registerAdmin(request);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/users/edit/{id}")
+    String adminUserEdit(@PathVariable long id, Model model) {
+        model.addAttribute("user", appUserRepository.findById(id).orElse(null));
+        return "admin/users/edit-user";
+    }
+
+    @PostMapping("/users/edit/{id}")
+    String adminUserUpdate(@PathVariable long id, @Valid @ModelAttribute("user") AppUser user, BindingResult bindingResult) {
+        AppUser appUser = appUserRepository.findById(id).get();
+        if (bindingResult.hasErrors()) {
+            return "admin/admins/edit-admin";
+        }
+        user.setAppUserRole(appUser.getAppUserRole());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        appUserRepository.save(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/users/confirm-delete/{id}")
+    String adminUserConfirmDelete(@PathVariable long id, Model model) {
+        model.addAttribute("user", appUserRepository.findById(id).orElse(null));
+        model.addAttribute("id", id);
+        return "admin/users/delete-user";
+    }
+
+    @GetMapping("/users/delete/{id}")
+    String adminUserDelete(@PathVariable long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
+            throw new IllegalStateException("Cannot delete currently logged admin");
+        } else {
+            appUserRepository.deleteById(id);
+        }
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/institutions/{pageNo}")
@@ -201,7 +256,7 @@ public class AdminController {
     @GetMapping("/categories/delete/{id}")
     String adminCategoriesDelete(@PathVariable long id) {
         if (!donationRepository.findDonationByCategoryId(id).isEmpty()) {
-            return "redirect:/admin/categories/confirm-archive/"+id;
+            return "redirect:/admin/categories/confirm-archive/" + id;
         } else {
             categoryRepository.deleteById(id);
         }
