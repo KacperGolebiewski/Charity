@@ -8,7 +8,7 @@
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
                 <span><strong>Zarządzaj użytkownikami</strong></span>
-                <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2" href="#"
+                <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2" href="<c:url value="/admin/users/add"/>"
                          role="button"><i class="fa fa-plus px-2"></i>Dodaj</a></span>
             </div>
             <div class="card-body">
@@ -30,8 +30,8 @@
                                             class="fa fa-fw fa-sort"></i></a>
                                     <span>Email</span>
                                 </th>
-                                <th scope="col">Zablokowany</th>
                                 <th scope="col">Aktywny</th>
+                                <th scope="col">Zablokowany</th>
                                 <th scope="col">
                                     <div align="middle">
                                         <span>Akcje</span>
@@ -45,8 +45,8 @@
                                     <td>${user.firstName}</td>
                                     <td>${user.lastName}</td>
                                     <td>${user.email}</td>
-                                    <td>${user.locked}</td>
                                     <td>${user.enabled}</td>
+                                    <td>${user.locked}</td>
                                     <td align="right">
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"

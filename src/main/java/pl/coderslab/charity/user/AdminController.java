@@ -13,6 +13,7 @@ import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryRepository;
 import pl.coderslab.charity.donation.DonationRepository;
 import pl.coderslab.charity.institution.Institution;
+import pl.coderslab.charity.institution.InstitutionRepository;
 import pl.coderslab.charity.institution.InstitutionService;
 import pl.coderslab.charity.registration.RegistrationRequest;
 import pl.coderslab.charity.registration.RegistrationService;
@@ -32,6 +33,7 @@ public class AdminController {
     private final AppUserRepository appUserRepository;
     private final RegistrationService registrationService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final InstitutionRepository institutionRepository;
 
 
     @GetMapping("/dashboard")
@@ -90,15 +92,16 @@ public class AdminController {
 
     @PostMapping("/dashboard/edit/{id}")
     String adminUpdate(@PathVariable long id, @Valid @ModelAttribute("admin") AppUser admin, BindingResult bindingResult) {
-
         AppUser appUser = appUserRepository.findById(id).get();
         if (bindingResult.hasErrors()) {
             return "admin/admins/edit-admin";
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getName().equals(appUser.getEmail())) {
-            admin.setEnabled(appUser.getEnabled());
-            admin.setLocked(appUser.getLocked());
+        if (appUserRepository.findById(id).isPresent()) {
+            if (appUserRepository.findById(id).get().getEmail().equals(auth.getName())) {
+                admin.setEnabled(appUser.getEnabled());
+                admin.setLocked(appUser.getLocked());
+            }
         }
         admin.setAppUserRole(appUser.getAppUserRole());
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
@@ -169,6 +172,13 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/admins/edit-admin";
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (appUserRepository.findById(id).isPresent()) {
+            if (appUserRepository.findById(id).get().getEmail().equals(auth.getName())) {
+                user.setEnabled(appUser.getEnabled());
+                user.setLocked(appUser.getLocked());
+            }
+        }
         user.setAppUserRole(appUser.getAppUserRole());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         appUserRepository.save(user);
@@ -207,7 +217,67 @@ public class AdminController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("institutions", institutions);
-        return "admin/institutions";
+        return "admin/institutions/institutions";
+    }
+
+    @GetMapping("/institutions/add")
+    String adminInstitutionsAdd(Model model) {
+        model.addAttribute("institution", new Institution());
+        return "admin/institutions/add-institution";
+    }
+
+    @PostMapping("/institutions/add")
+    String adminInstitutionsSave(@Valid Institution institution, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/institutions/add-institution";
+        }
+        institutionRepository.save(institution);
+        return "redirect:/admin/institutions";
+    }
+
+    @GetMapping("/institutions/edit/{id}")
+    String adminInstitutionsEdit(@PathVariable long id, Model model) {
+        model.addAttribute("institution", institutionRepository.findById(id).orElse(null));
+        return "admin/institutions/edit-institution";
+    }
+
+    @PostMapping("/institutions/edit/{id}")
+    String adminInstitutionsUpdate(@Valid Institution institution, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/institutions/edit-institution";
+        }
+        institutionRepository.save(institution);
+        return "redirect:/admin/institutions";
+    }
+
+    @GetMapping("/institutions/confirm-delete/{id}")
+    String adminInstitutionsConfirmDelete(@PathVariable long id, Model model) {
+        model.addAttribute("id", id);
+        return "admin/institutions/delete-institution";
+    }
+
+    @GetMapping("/institutions/delete/{id}")
+    String adminInstitutionsDelete(@PathVariable long id) {
+        if (donationRepository.findDonationByInstitutionId(id).isPresent()) {
+            return "redirect:/admin/institutions/confirm-archive/" + id;
+        } else {
+            institutionRepository.deleteById(id);
+        }
+        return "redirect:/admin/institutions";
+    }
+
+    @GetMapping("/institutions/confirm-archive/{id}")
+    String adminInstitutionsConfirmArchive(@PathVariable long id, Model model) {
+        model.addAttribute("id", id);
+        return "admin/institutions/archive-institution";
+    }
+
+    @GetMapping("/institutions/archive/{id}")
+    String adminInstitutionsArchive(@PathVariable long id) {
+        Institution institution = institutionRepository.findById(id).get();
+        institution.setActive(false);
+        institutionRepository.save(institution);
+        return "redirect:/admin/institutions";
     }
 
     @GetMapping("/categories")

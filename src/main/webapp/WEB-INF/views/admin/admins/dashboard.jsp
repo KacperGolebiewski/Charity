@@ -33,8 +33,8 @@
                                             class="fa fa-fw fa-sort"></i></a>
                                     <span>Email</span>
                                 </th>
-                                <th scope="col">Zablokowany</th>
                                 <th scope="col">Aktywny</th>
+                                <th scope="col">Zablokowany</th>
                                 <th scope="col">
                                     <div align="middle">
                                         <span>Akcje</span>
@@ -48,8 +48,8 @@
                                     <td>${admin.firstName}</td>
                                     <td>${admin.lastName}</td>
                                     <td>${admin.email}</td>
-                                    <td>${admin.locked}</td>
                                     <td>${admin.enabled}</td>
+                                    <td>${admin.locked}</td>
                                     <td align="right">
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"

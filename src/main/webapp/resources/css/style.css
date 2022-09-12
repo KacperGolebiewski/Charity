@@ -1570,35 +1570,36 @@ footer {
 .btn-outline-success {
     color: black;
     border-color: black;
-    background-color: #28a745;
+    background-color: transparent;
 !important;
 }
 
 .btn-outline-success:hover {
     color: black;
-    background-color: #28a745;
-    border-color: #28a745;
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: #ffc107;
 }
 
 .btn-outline-success:focus, .btn-outline-success.focus {
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+    box-shadow: 0 0 0 0.2rem transparent;
 }
 
 .btn-outline-success.disabled, .btn-outline-success:disabled {
-    color: #28a745;
+    color: transparent;
     background-color: transparent;
 }
 
 .btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active,
 .show > .btn-outline-success.dropdown-toggle {
     color: black;
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: transparent;
+    border-color: transparent;
 }
 
 .btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-success.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+    box-shadow: 0 0 0 0.2rem transparent;
 }
 
 th {
