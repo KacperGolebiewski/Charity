@@ -7,35 +7,21 @@
 <div class="body flex-grow-1 px-3 py-5" style="font-size: 1.5rem;!important;">
     <div class="container py-5">
         <div class="card mb-4">
-            <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Zarządzaj Adminami</strong></span>
-                <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2"
-                         href="<c:url value="/admin/dashboard/add"/>"
-                         role="button"><i class="fa fa-plus px-2"></i>Dodaj</a></span>
-            </div>
             <div class="card-body">
                 <div class="tab-content rounded-bottom">
                     <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1055">
                         <table class="table table-hover">
                             <thead>
                             <tr>
+                                <th scope="col">Imię</th>
+                                <th scope="col">Nazwisko</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">
-                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=firstName&sortDir=${reverseSortDir}"/>"><i
+                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/messages/${currentPage}?sortField=created&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Imię</span>
+                                    <span>Data</span>
                                 </th>
-                                <th scope="col">
-                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=lastName&sortDir=${reverseSortDir}"/>"><i
-                                            class="fa fa-fw fa-sort"></i></a>
-                                    <span>Nazwisko</span>
-                                </th>
-                                <th scope="col">
-                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=email&sortDir=${reverseSortDir}"/>"><i
-                                            class="fa fa-fw fa-sort"></i></a>
-                                    <span>Email</span>
-                                </th>
-                                <th scope="col">Aktywny</th>
-                                <th scope="col">Zablokowany</th>
+                                <th scope="col">Wiadomość</th>
                                 <th scope="col">
                                     <div align="middle">
                                         <span>Akcje</span>
@@ -44,22 +30,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${admins}" var="admin">
+                            <c:forEach items="${messages}" var="message">
                                 <tr>
-                                    <td>${admin.firstName}</td>
-                                    <td>${admin.lastName}</td>
-                                    <td>${admin.email}</td>
-                                    <td>${admin.enabled}</td>
-                                    <td>${admin.locked}</td>
+                                    <td>${message.firstName}</td>
+                                    <td>${message.lastName}</td>
+                                    <td>${message.email}</td>
+                                    <td>${message.created}</td>
+                                    <td>${message.message}</td>
                                     <td align="right">
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
-                                           href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/confirm-delete/${admin.id}"/>"><i
+                                           href="<c:url value="/admin/messages/confirm-delete/${message.id}"/>"><i
                                                 class="align-middle fa fa-trash px-2 text-sm me-2"></i>Usuń</a>
-                                        <a style="font-size: 1.5rem;!important;"
-                                           class="btn btn-link text-dark px-3 mb-0 py-2"
-                                           href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/edit/${admin.id}"/>"><i
-                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i>Edytuj</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -76,7 +58,7 @@
                         <c:when test="${currentPage > 1}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
+                                   href="<c:url value="${pageContext.request.contextPath}/admin/messages/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -89,7 +71,7 @@
                         <c:choose>
                             <c:when test="${currentPage != status.index}">
                                 <li class="page-item"><a class="page-link"
-                                                         href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
+                                                         href="<c:url value="${pageContext.request.contextPath}/admin/messages/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -101,7 +83,7 @@
                         <c:when test="${currentPage < totalPages}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
+                                   href="<c:url value="${pageContext.request.contextPath}/admin/messages/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
                             </li>
                         </c:when>
                         <c:otherwise>

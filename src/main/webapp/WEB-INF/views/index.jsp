@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="../views/header.jsp"/>
 <section id="how-it-works" class="stats">
@@ -49,9 +49,9 @@
             <p>kurier przyjedzie w dogodnym terminie</p>
         </div>
     </div>
-<sec:authorize access="!isAuthenticated()">
-    <a href="<c:url value="${pageContext.request.contextPath}/register"/>" class="btn btn--large">Załóż konto</a>
-</sec:authorize>
+    <sec:authorize access="!isAuthenticated()">
+        <a href="<c:url value="${pageContext.request.contextPath}/register"/>" class="btn btn--large">Załóż konto</a>
+    </sec:authorize>
 </section>
 
 <section id="about-us" class="about-us">
@@ -59,9 +59,12 @@
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
             optio esse quisquam illo omnis.</p>
-        <img src="<c:url value="${pageContext.request.contextPath}/resources/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
+        <img src="<c:url value="${pageContext.request.contextPath}/resources/images/signature.svg"/>"
+             class="about-us--text-signature" alt="Signature"/>
     </div>
-    <div class="about-us--image"><img src="<c:url value="${pageContext.request.contextPath}/resources/images/about-us.jpg"/>" alt="People in circle"/>
+    <div class="about-us--image"><img
+            src="<c:url value="${pageContext.request.contextPath}/resources/images/about-us.jpg"/>"
+            alt="People in circle"/>
     </div>
 </section>
 
@@ -77,16 +80,16 @@
             <c:forEach items="${institutions}" var="institution" varStatus="status">
                 <c:if test="${status.index %2 == 0}">
                     <li>
-                        <div class="col">
-                            <div class="title">Fundacja "${institution.name}"</div>
-                            <div class="subtitle">Cel i misja: ${institution.description}</div>
-                        </div>
+                    <div class="col">
+                        <div class="title">Fundacja "${institution.name}"</div>
+                        <div class="subtitle">Cel i misja: ${institution.description}</div>
+                    </div>
                 </c:if>
                 <c:if test="${status.index %2 != 0}">
-                        <div class="col">
-                            <div class="title">Fundacja "${institution.name}"</div>
-                            <div class="subtitle">Cel i misja: ${institution.description}</div>
-                        </div>
+                    <div class="col">
+                        <div class="title">Fundacja "${institution.name}"</div>
+                        <div class="subtitle">Cel i misja: ${institution.description}</div>
+                    </div>
                     </li>
                 </c:if>
             </c:forEach>

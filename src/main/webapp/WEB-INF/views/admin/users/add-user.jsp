@@ -8,7 +8,7 @@
     <div class="container-custom py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Dodaj Admina</strong></span>
+                <span><strong>Dodaj Użytkownika</strong></span>
             </div>
             <div class="card-body">
                 <form:form modelAttribute="request">

@@ -8,7 +8,8 @@
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
                 <span><strong>Zarządzaj użytkownikami</strong></span>
-                <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2" href="<c:url value="/admin/users/add"/>"
+                <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2"
+                         href="<c:url value="/admin/users/add"/>"
                          role="button"><i class="fa fa-plus px-2"></i>Dodaj</a></span>
             </div>
             <div class="card-body">

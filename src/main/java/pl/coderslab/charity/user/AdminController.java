@@ -11,10 +11,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryRepository;
+import pl.coderslab.charity.donation.Donation;
 import pl.coderslab.charity.donation.DonationRepository;
 import pl.coderslab.charity.institution.Institution;
 import pl.coderslab.charity.institution.InstitutionRepository;
 import pl.coderslab.charity.institution.InstitutionService;
+import pl.coderslab.charity.message.Message;
+import pl.coderslab.charity.message.MessageRepository;
+import pl.coderslab.charity.message.MessageService;
 import pl.coderslab.charity.registration.RegistrationRequest;
 import pl.coderslab.charity.registration.RegistrationService;
 
@@ -34,6 +38,8 @@ public class AdminController {
     private final RegistrationService registrationService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final InstitutionRepository institutionRepository;
+    private final MessageService messageService;
+    private final MessageRepository messageRepository;
 
 
     @GetMapping("/dashboard")
@@ -49,6 +55,11 @@ public class AdminController {
     @GetMapping("/institutions")
     public String viewInstitutionsPage(Model model) {
         return adminInstitutions(1, "name", "asc", model);
+    }
+
+    @GetMapping("/messages")
+    public String viewMessagesPages(Model model) {
+        return adminMessages(1, "created", "desc", model);
     }
 
 
@@ -156,7 +167,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/users/add-user";
         }
-        registrationService.registerAdmin(request);
+        registrationService.register(request);
         return "redirect:/admin/users";
     }
 
@@ -198,6 +209,8 @@ public class AdminController {
         if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
             throw new IllegalStateException("Cannot delete currently logged admin");
         } else {
+            Donation donation = donationRepository.findByUserId(id);
+            donation.setUser(null);
             appUserRepository.deleteById(id);
         }
         return "redirect:/admin/users";
@@ -348,8 +361,33 @@ public class AdminController {
     }
 
     @GetMapping("/messages/{pageNo}")
-    String adminMessages(@PathVariable int pageNo, Model model) {
+    String adminMessages(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
+        int pageSize = 10;
+        Page<Message> page = messageService.findAllPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Message> messages = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
 
-        return "admin/messages";
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("messages", messages);
+        return "admin/messages/messages";
+    }
+
+    @GetMapping("/messages/confirm-delete/{id}")
+    String adminMessagesConfirmDelete(@PathVariable long id, Model model) {
+        model.addAttribute("id", id);
+        return "admin/messages/delete-message";
+    }
+
+    @GetMapping("/messages/delete/{id}")
+    String adminMessagesDelete(@PathVariable long id) {
+
+        messageRepository.deleteById(id);
+
+        return "redirect:/admin/messages";
     }
 }

@@ -3,8 +3,6 @@ package pl.coderslab.charity.registration;
 import lombok.*;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 

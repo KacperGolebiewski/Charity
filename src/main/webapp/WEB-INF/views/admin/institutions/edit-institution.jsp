@@ -19,7 +19,7 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <form:textarea type="text" path="description" placeholder="Opis" rows="3" />
+                    <form:textarea type="text" path="description" placeholder="Opis" rows="3"/>
                     <span class="text-error">
                        <form:errors path="description"/>
                     </span>
@@ -27,7 +27,8 @@
                 <div class="form-group form-group--checkbox">
                     <div class="title">Aktywny</div>
                     <label>
-                        <form:checkbox path="active" cssClass="checkbox" value="${institution.active}" id="active"/><span class="description"></span>
+                        <form:checkbox path="active" cssClass="checkbox" value="${institution.active}"
+                                       id="active"/><span class="description"></span>
                     </label>
                 </div>
                 <div class="form-group ">

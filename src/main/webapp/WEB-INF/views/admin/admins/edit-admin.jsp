@@ -30,24 +30,26 @@
                        <form:errors path="email"/>
                     </span>
                 </div>
-                    <div class="form-group">
-                        <form:input type="password" path="password" placeholder="Hasło"/>
-                        <span class="text-error">
+                <div class="form-group">
+                    <form:input type="password" path="password" placeholder="Hasło"/>
+                    <span class="text-error">
                        <form:errors path="password"/>
                     </span>
-                    </div>
+                </div>
                 <div class="form-group form-group--checkbox">
                     <div class="title">Aktywny</div>
                     <label>
-                        <form:checkbox path="enabled" cssClass="checkbox" value="${admin.enabled}" id="enabled"/><span class="description"></span>
+                        <form:checkbox path="enabled" cssClass="checkbox" value="${admin.enabled}" id="enabled"/><span
+                            class="description"></span>
                     </label>
                 </div>
-                    <div class="form-group form-group--checkbox">
-                        <div class="title">Zablokowany</div>
-                        <label>
-                            <form:checkbox path="locked" cssClass="checkbox" value="${admin.locked}" id="locked"/><span class="description"></span>
-                        </label>
-                    </div>
+                <div class="form-group form-group--checkbox">
+                    <div class="title">Zablokowany</div>
+                    <label>
+                        <form:checkbox path="locked" cssClass="checkbox" value="${admin.locked}" id="locked"/><span
+                            class="description"></span>
+                    </label>
+                </div>
                 <div class="form-group ">
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"

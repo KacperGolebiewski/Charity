@@ -7,10 +7,12 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
+import pl.coderslab.charity.user.AppUser;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -50,4 +52,23 @@ public class Donation {
     private LocalTime pickUpTime;
 
     private String pickUpComment;
+    @ManyToOne
+    private AppUser user;
+    private boolean isDelivered = false;
+
+    @Column(name = "created")
+    private LocalDateTime created;
+    @Column(name = "updated")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime updated;
+
+    @PrePersist
+    public void prePersist() {
+        created = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updated = LocalDateTime.now();
+    }
 }

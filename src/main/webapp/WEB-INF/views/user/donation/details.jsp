@@ -2,16 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<jsp:include page="../header-admin.jsp"/>
+<jsp:include page="header-donation.jsp"/>
 <div class="body flex-grow-1 px-3 py-5" style="font-size: 1.5rem;!important;">
     <div class="container py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Zarządzaj Adminami</strong></span>
-                <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2"
-                         href="<c:url value="/admin/dashboard/add"/>"
-                         role="button"><i class="fa fa-plus px-2"></i>Dodaj</a></span>
+                <span><strong>Moje zbiórki</strong></span>
             </div>
             <div class="card-body">
                 <div class="tab-content rounded-bottom">
@@ -19,23 +15,22 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
+                                <th scope="col">Imię i nazwisko</th>
+                                <th scope="col">Fundacja</th>
+                                <th scope="col">Przekazane dary</th>
+                                <th scope="col">Ilość worków</th>
                                 <th scope="col">
-                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=firstName&sortDir=${reverseSortDir}"/>"><i
+                                    <a href="<c:url value="/donation/details/${currentPage}?sortField=isDelivered&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Imię</span>
-                                </th>
+                                    <span>Status</span></th>
                                 <th scope="col">
-                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=lastName&sortDir=${reverseSortDir}"/>"><i
+                                    <a href="<c:url value="/donation/details/${currentPage}?sortField=created&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Nazwisko</span>
-                                </th>
+                                    <span>Data utworzenia</span></th>
                                 <th scope="col">
-                                    <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage}?sortField=email&sortDir=${reverseSortDir}"/>"><i
+                                    <a href="<c:url value="/donation/details/${currentPage}?sortField=updated&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Email</span>
-                                </th>
-                                <th scope="col">Aktywny</th>
-                                <th scope="col">Zablokowany</th>
+                                    <span>Data odebrania</span></th>
                                 <th scope="col">
                                     <div align="middle">
                                         <span>Akcje</span>
@@ -44,21 +39,35 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${admins}" var="admin">
+                            <c:forEach items="${donations}" var="donation">
                                 <tr>
-                                    <td>${admin.firstName}</td>
-                                    <td>${admin.lastName}</td>
-                                    <td>${admin.email}</td>
-                                    <td>${admin.enabled}</td>
-                                    <td>${admin.locked}</td>
+                                    <td>${donation.user.firstName} ${donation.user.lastName}</td>
+                                    <td>"${donation.institution.name}"</td>
+                                    <td>
+                                        <c:forEach items="${donation.categories}" var="category">
+                                            ${category.name}<br>
+                                        </c:forEach>
+                                    </td>
+                                    <td>${donation.quantity}</td>
+                                    <c:choose>
+                                        <c:when test="${donation.delivered == true}">
+                                            <td>dostarczono</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>oczekuje</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <td>${donation.created.toString().substring(0,10)}</td>
+                                    <td>
+                                        <c:if test="${donation.delivered == true}">
+                                            ${donation.updated.toString().substring(0,10)}
+                                            ${donation.updated.toString().substring(11,16)}
+                                        </c:if>
+                                    </td>
                                     <td align="right">
                                         <a style="font-size: 1.5rem;!important;"
-                                           class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
-                                           href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/confirm-delete/${admin.id}"/>"><i
-                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i>Usuń</a>
-                                        <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-dark px-3 mb-0 py-2"
-                                           href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/edit/${admin.id}"/>"><i
+                                           href="<c:url value="/donation/details/edit/${donation.id}"/>"><i
                                                 class="align-middle fa fa-edit px-2 text-sm me-2"></i>Edytuj</a>
                                     </td>
                                 </tr>
@@ -76,7 +85,7 @@
                         <c:when test="${currentPage > 1}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
+                                   href="<c:url value="/donation/details/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -89,7 +98,7 @@
                         <c:choose>
                             <c:when test="${currentPage != status.index}">
                                 <li class="page-item"><a class="page-link"
-                                                         href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
+                                                         href="<c:url value="/donation/details/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -101,7 +110,7 @@
                         <c:when test="${currentPage < totalPages}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="${pageContext.request.contextPath}/admin/dashboard/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
+                                   href="<c:url value="/donation/details/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -115,4 +124,4 @@
         </c:if>
     </div>
 </div>
-<jsp:include page="../footer-admin.jsp"/>
+<jsp:include page="../../footer.jsp"/>

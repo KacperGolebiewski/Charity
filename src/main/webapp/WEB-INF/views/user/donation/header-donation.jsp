@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -26,42 +27,59 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href=
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-
 </head>
 <body>
-<header class="py-xl-5">
-    <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-        <nav class="container container--70">
-            <ul class="nav--actions">
+<header>
+    <nav class="container container--70">
+        <ul class="nav--actions">
+            <sec:authorize access="isAuthenticated()">
                 <li class="logged-user">
                     Witaj
                     <sec:authentication property="principal.firstName"/>
                     <ul class="dropdown">
-                        <li><a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard"/>">Admin</a></li>
-                        <li><a href="<c:url value="${pageContext.request.contextPath}/user/details"/>">Profil</a></li>
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                            <li>
+                                <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard"/>">Admin</a>
+                            </li>
+                        </sec:authorize>
+                        <li>
+                            <a href="<c:url value="${pageContext.request.contextPath}/user/details"/>">Profil</a>
+                        </li>
                         <li><a href="<c:url value="/donation/details"/>">Moje zbiórki</a></li>
                         <li>
                             <form action="<c:url value="/logout"/>" method="post">
                                 <input class="logout" type="submit" value="Wyloguj"/>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <input type="hidden" name="${_csrf.parameterName}"
+                                       value="${_csrf.token}"/>
                             </form>
                         </li>
                     </ul>
                 </li>
-            </ul>
-            <ul>
-                <li><a href="<c:url value="/admin/dashboard"/>"
-                       class="btn btn--without-border">Zarządzaj adminami</a></li>
-                <li>
-                    <a href="<c:url value="/admin/users"/>"
-                       class="btn btn--without-border">Zarządzaj użytkownikami</a></li>
-                <li><a href="<c:url value="/admin/institutions"/>"
-                       class="btn btn--without-border">Zarządzaj fundacjami</a></li>
-                <li><a href="<c:url value="/admin/categories"/>"
-                       class="btn btn--without-border">Zarządzaj kategoriami</a></li>
-                <li><a href="<c:url value="/admin/messages"/>"
-                       class="btn btn--without-border">Wiadomości</a></li>
-            </ul>
-        </nav>
-    </sec:authorize>
+            </sec:authorize>
+        </ul>
+        <ul>
+            <sec:authorize access="isAuthenticated()">
+                <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>"
+                       class="btn btn--without-border active">Start</a></li>
+            </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <li><a href="<c:url value="${pageContext.request.contextPath}/"/>"
+                       class="btn btn--without-border active">Start</a></li>
+            </sec:authorize>
+            <li><a href="<c:url value="${pageContext.request.contextPath}/#how-it-works"/>"
+                   class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a href="<c:url value="${pageContext.request.contextPath}/#about-us" />"
+                   class="btn btn--without-border">O nas</a></li>
+            <sec:authorize access="!isAuthenticated()">
+                <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>"
+                       class="btn btn--without-border">Przekaż dary</a></li>
+            </sec:authorize>
+            <li><a href="<c:url value="${pageContext.request.contextPath}/#institutions"/>"
+                   class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="<c:url value="${pageContext.request.contextPath}/#contact"/>"
+                   class="btn btn--without-border">Kontakt</a></li>
+        </ul>
+
+    </nav>
 </header>
+
