@@ -5,25 +5,40 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="../header.jsp"/>
 <section class="login-page">
-    <h2>Załóż konto</h2>
+    <h2><spring:message code="text.signUp"/></h2>
     <%--@elvariable id="request" type="pl.coderslab.charity.registration.RegistrationRequest"--%>
     <form:form modelAttribute="request">
         <div class="form-group">
-            <form:input type="text" path="firstName" placeholder="first name"/>
+            <spring:message code="text.firstName" var="placeholderName" />
+            <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
+            <span class="text-error">
+                       <form:errors path="firstName"/>
+                    </span>
         </div>
         <div class="form-group">
-            <form:input type="text" path="lastName" placeholder="last name"/>
+            <spring:message code="text.lastName" var="placeholderLastName" />
+            <form:input type="text" path="lastName" placeholder='${placeholderLastName}'/>
+            <span class="text-error">
+                       <form:errors path="firstName"/>
+                    </span>
         </div>
         <div class="form-group">
-            <form:input type="email" path="email" placeholder="email"/>
+            <spring:message code="text.email" var="placeholderEmail" />
+            <form:input type="email" path="email" placeholder='${placeholderEmail}'/>
+            <span class="text-error">
+                       <form:errors path="email"/>
+                    </span>
         </div>
         <div class="form-group">
-            <form:input type="password" path="password" placeholder="password"/>
+            <spring:message code="text.password" var="placeholderPassword" />
+            <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
+            <span class="text-error">
+                       <form:errors path="password"/>
+                    </span>
         </div>
         <div class="form-group form-group--buttons">
-            <a href="<c:url value="${pageContext.request.contextPath}/login"/>" class="btn btn--without-border">Zaloguj
-                się</a>
-            <button class="btn" type="submit">Załóż konto</button>
+            <a href="<c:url value="/login"/>" class="btn btn--without-border"><spring:message code="text.login"/></a>
+            <button class="btn" type="submit"><spring:message code="text.signUp"/></button>
         </div>
     </form:form>
 </section>

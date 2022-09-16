@@ -8,10 +8,10 @@
     <div class="container-custom py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Zarządzaj Kategoriami</strong></span>
+                <span><strong><spring:message code="text.manageCategories"/></strong></span>
                 <span><a style="font-size: 1.5rem;!important;" class="btn btn-outline-success px-3 py-2"
                          href="<c:url value="/admin/categories/add"/>"
-                         role="button"><i class="fa fa-plus px-2"></i>Dodaj</a></span>
+                         role="button"><i class="fa fa-plus px-2"></i><spring:message code="text.add"/></a></span>
             </div>
             <div class="card-body">
                 <div class="tab-content rounded-bottom">
@@ -19,11 +19,11 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Nazwa</th>
-                                <th scope="col">Aktywny</th>
+                                <th scope="col"><spring:message code="text.name"/></th>
+                                <th scope="col"><spring:message code="text.active"/></th>
                                 <th scope="col">
                                     <div align="middle">
-                                        <span>Akcje</span>
+                                        <span><spring:message code="text.actions"/></span>
                                     </div>
                                 </th>
                             </tr>
@@ -37,11 +37,11 @@
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
                                            href="<c:url value="/admin/categories/confirm-delete/${category.id}"/>"><i
-                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i>Usuń</a>
+                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i><spring:message code="text.delete"/></a>
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-dark px-3 mb-0 py-2"
                                            href="<c:url value="/admin/categories/edit/${category.id}"/>"><i
-                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i>Edytuj</a>
+                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i><spring:message code="text.edit"/></a>
                                     </td>
                                 </tr>
                             </c:forEach>

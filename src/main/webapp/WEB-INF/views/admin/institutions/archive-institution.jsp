@@ -8,17 +8,17 @@
     <div class="container-custom py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Kategoria jest przypisana do daru. Czy zarchiwizować?</strong></span>
+                <span><strong><spring:message code="text.archivedInstitution"/></strong></span>
             </div>
             <div class="card-body">
                 <a style="font-size: 1.5rem;!important;"
                    class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
                    href="<c:url value="/admin/institutions/archive/${id}"/>"><i
-                        class="align-middle fa fa-trash px-2 text-sm me-2"></i>Archiwizuj</a>
+                        class="align-middle fa fa-trash px-2 text-sm me-2"></i><spring:message code="text.archive"/></a>
                 <a style="font-size: 1.5rem;!important;"
                    class="btn btn-link text-dark px-3 mb-0 py-2"
                    href="<c:url value="/admin/institutions"/>"><i
-                        class="align-middle fa fa-arrow-alt-circle-left px-2 text-sm me-2"></i>Powrót</a>
+                        class="align-middle fa fa-arrow-alt-circle-left px-2 text-sm me-2"></i><spring:message code="text.return"/></a>
             </div>
         </div>
     </div>

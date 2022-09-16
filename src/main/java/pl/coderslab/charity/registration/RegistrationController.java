@@ -3,10 +3,10 @@ package pl.coderslab.charity.registration;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/register")
@@ -22,7 +22,10 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String register(RegistrationRequest request) {
+    public String register(@Valid @ModelAttribute("request") RegistrationRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "log-reg/register";
+        }
         registrationService.register(request);
         return "redirect:/login";
     }

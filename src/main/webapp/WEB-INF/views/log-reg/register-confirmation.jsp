@@ -5,10 +5,9 @@
 <jsp:include page="../header.jsp"/>
 <div class="slogan container container--90">
     <h2>
-        Dziękujemy za potwierdzenie rejestracji.
+        <spring:message code="text.registrationConfirmation"/>
         <div class="form-group form-group--buttons">
-            <a href="<c:url value="${pageContext.request.contextPath}/login"/>" class="btn btn--without-border">Zaloguj
-                się</a>
+            <a href="<c:url value="/login"/>" class="btn btn--without-border"><spring:message code="text.login"/></a>
         </div>
     </h2>
 </div>

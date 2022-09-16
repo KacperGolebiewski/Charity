@@ -9,11 +9,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
+    <title><spring:message code="app.name"/></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -34,15 +34,16 @@
         <nav class="container container--70">
             <ul class="nav--actions">
                 <li class="logged-user">
-                    Witaj
+                    <spring:message code="hello.message"/>
                     <sec:authentication property="principal.firstName"/>
                     <ul class="dropdown">
-                        <li><a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard"/>">Admin</a></li>
-                        <li><a href="<c:url value="${pageContext.request.contextPath}/user/details"/>">Profil</a></li>
-                        <li><a href="<c:url value="/donation/details"/>">Moje zbiórki</a></li>
+                        <li><a href="<c:url value="/admin/dashboard"/>"><spring:message code="text.admin"/></a></li>
+                        <li><a href="<c:url value="/user/details"/>"><spring:message code="text.profile"/></a></li>
+                        <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a></li>
                         <li>
                             <form action="<c:url value="/logout"/>" method="post">
-                                <input class="logout" type="submit" value="Wyloguj"/>
+                                <spring:message code="text.logOut" var="logOut" />
+                                <input class="logout" type="submit" value='${logOut}'/>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </li>
@@ -51,16 +52,16 @@
             </ul>
             <ul>
                 <li><a href="<c:url value="/admin/dashboard"/>"
-                       class="btn btn--without-border">Zarządzaj adminami</a></li>
+                       class="btn btn--without-border"><spring:message code="text.manageAdmins"/></a></li>
                 <li>
                     <a href="<c:url value="/admin/users"/>"
-                       class="btn btn--without-border">Zarządzaj użytkownikami</a></li>
+                       class="btn btn--without-border"><spring:message code="text.manageUsers"/></a></li>
                 <li><a href="<c:url value="/admin/institutions"/>"
-                       class="btn btn--without-border">Zarządzaj fundacjami</a></li>
+                       class="btn btn--without-border"><spring:message code="text.manageInstitutions"/></a></li>
                 <li><a href="<c:url value="/admin/categories"/>"
-                       class="btn btn--without-border">Zarządzaj kategoriami</a></li>
+                       class="btn btn--without-border"><spring:message code="text.manageCategories"/></a></li>
                 <li><a href="<c:url value="/admin/messages"/>"
-                       class="btn btn--without-border">Wiadomości</a></li>
+                       class="btn btn--without-border"><spring:message code="text.messages"/></a></li>
             </ul>
         </nav>
     </sec:authorize>

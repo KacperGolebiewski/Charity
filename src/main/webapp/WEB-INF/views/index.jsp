@@ -9,86 +9,82 @@
         <div class="stats--item">
             <em>${totalQuantity}</em>
 
-            <h3>Oddanych worków</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
-                tempora!</p>
+            <h3><spring:message code="text.donatedBags"/></h3>
+            <p><spring:message code="text.joinEveryone"/></p>
         </div>
 
         <div class="stats--item">
             <em>${totalDonations}</em>
-            <h3>Przekazanych darów</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
-                quam.</p>
+            <h3><spring:message code="text.donations"/></h3>
+            <p><spring:message code="text.joinSpreadingGood"/></p>
         </div>
 
     </div>
 </section>
 
 <section id="steps" class="steps">
-    <h2>Wystarczą 4 proste kroki</h2>
+    <h2><spring:message code="text.4steps"/></h2>
 
     <div class="steps--container">
         <div class="steps--item">
             <span class="icon icon--hands"></span>
-            <h3>Wybierz rzeczy</h3>
-            <p>ubrania, zabawki, sprzęt i inne</p>
+            <h3><spring:message code="text.chooseItems"/></h3>
+            <p><spring:message code="text.examples"/></p>
         </div>
         <div class="steps--item">
             <span class="icon icon--arrow"></span>
-            <h3>Spakuj je</h3>
-            <p>skorzystaj z worków na śmieci</p>
+            <h3><spring:message code="text.putInBags"/></h3>
+            <p><spring:message code="text.useBinBags"/></p>
         </div>
         <div class="steps--item">
             <span class="icon icon--glasses"></span>
-            <h3>Zdecyduj komu chcesz pomóc</h3>
-            <p>wybierz zaufane miejsce</p>
+            <h3><spring:message code="text.decideWhoYouWantToHelp"/></h3>
+            <p><spring:message code="text.chooseTrustedPlace"/></p>
         </div>
         <div class="steps--item">
             <span class="icon icon--courier"></span>
-            <h3>Zamów kuriera</h3>
-            <p>kurier przyjedzie w dogodnym terminie</p>
+            <h3><spring:message code="text.orderCourier"/></h3>
+            <p><spring:message code="text.courierWillCome"/></p>
         </div>
     </div>
     <sec:authorize access="!isAuthenticated()">
-        <a href="<c:url value="${pageContext.request.contextPath}/register"/>" class="btn btn--large">Załóż konto</a>
+        <a href="<c:url value="/register"/>" class="btn btn--large"><spring:message code="text.createAcc"/></a>
     </sec:authorize>
 </section>
 
 <section id="about-us" class="about-us">
     <div class="about-us--text">
-        <h2>O nas</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
-            optio esse quisquam illo omnis.</p>
-        <img src="<c:url value="${pageContext.request.contextPath}/resources/images/signature.svg"/>"
+        <h2><spring:message code="text.aboutUs"/></h2>
+        <p><spring:message code="text.aboutUsText"/></p>
+        <img src="<c:url value="/resources/images/signature.svg"/>"
              class="about-us--text-signature" alt="Signature"/>
     </div>
     <div class="about-us--image"><img
-            src="<c:url value="${pageContext.request.contextPath}/resources/images/about-us.jpg"/>"
+            src="<c:url value="/resources/images/about-us.jpg"/>"
             alt="People in circle"/>
     </div>
 </section>
 
 <section id="institutions" class="help">
-    <h2>Komu pomagamy?</h2>
+    <h2><spring:message code="text.whoDoWeHelp"/></h2>
 
     <!-- SLIDE 1 -->
     <div class="help--slides active" data-id="1">
-        <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
-            Możesz sprawdzić czym się zajmują.</p>
+        <p><spring:message code="text.foundationDescription"/></p>
 
         <ul class="help--slides-items">
             <c:forEach items="${institutions}" var="institution" varStatus="status">
                 <c:if test="${status.index %2 == 0}">
                     <li>
                     <div class="col">
-                        <div class="title">Fundacja "${institution.name}"</div>
-                        <div class="subtitle">Cel i misja: ${institution.description}</div>
+                        <div class="title"><spring:message code="text.institution"/> "${institution.name}"</div>
+                        <div class="subtitle"><spring:message code="text.purposeAndMission"/>: ${institution.description}</div>
                     </div>
                 </c:if>
                 <c:if test="${status.index %2 != 0}">
                     <div class="col">
-                        <div class="title">Fundacja "${institution.name}"</div>
-                        <div class="subtitle">Cel i misja: ${institution.description}</div>
+                        <div class="title"><spring:message code="text.institution"/> "${institution.name}"</div>
+                        <div class="subtitle"><spring:message code="text.purposeAndMission"/>: ${institution.description}</div>
                     </div>
                     </li>
                 </c:if>

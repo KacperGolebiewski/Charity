@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -14,15 +16,24 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class RegistrationRequest {
 
-    @NotBlank
+    @NotNull
+    @NotEmpty
     private String firstName;
-    @NotBlank
+
+    @NotNull
+    @NotEmpty
     private String lastName;
+
     @Column(nullable = false, unique = true, length = 60)
-    @NotBlank
+    @NotNull
+    @NotEmpty
     @Email
     private String email;
-    @NotBlank
+
+    @NotNull
+    @NotEmpty
     private String password;
+
+    private String matchingPassword;
 }
 

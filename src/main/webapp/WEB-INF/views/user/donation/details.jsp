@@ -7,7 +7,7 @@
     <div class="container py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Moje zbiórki</strong></span>
+                <span><strong><spring:message code="text.myDonations"/></strong></span>
             </div>
             <div class="card-body">
                 <div class="tab-content rounded-bottom">
@@ -15,25 +15,25 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Imię i nazwisko</th>
-                                <th scope="col">Fundacja</th>
-                                <th scope="col">Przekazane dary</th>
-                                <th scope="col">Ilość worków</th>
+                                <th scope="col"><spring:message code="text.fullName"/></th>
+                                <th scope="col"><spring:message code="text.institutionName"/></th>
+                                <th scope="col"><spring:message code="text.donationType"/></th>
+                                <th scope="col"><spring:message code="text.quantity"/></th>
                                 <th scope="col">
                                     <a href="<c:url value="/donation/details/${currentPage}?sortField=isDelivered&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Status</span></th>
+                                    <span><spring:message code="text.status"/></span></th>
                                 <th scope="col">
                                     <a href="<c:url value="/donation/details/${currentPage}?sortField=created&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Data utworzenia</span></th>
+                                    <span><spring:message code="text.creationDate"/></span></th>
                                 <th scope="col">
                                     <a href="<c:url value="/donation/details/${currentPage}?sortField=updated&sortDir=${reverseSortDir}"/>"><i
                                             class="fa fa-fw fa-sort"></i></a>
-                                    <span>Data odebrania</span></th>
+                                    <span><spring:message code="text.deliveryDate"/></span></th>
                                 <th scope="col">
                                     <div align="middle">
-                                        <span>Akcje</span>
+                                        <span><spring:message code="text.actions"/></span>
                                     </div>
                                 </th>
                             </tr>
@@ -51,10 +51,10 @@
                                     <td>${donation.quantity}</td>
                                     <c:choose>
                                         <c:when test="${donation.delivered == true}">
-                                            <td>dostarczono</td>
+                                            <td><spring:message code="text.delivered"/></td>
                                         </c:when>
                                         <c:otherwise>
-                                            <td>oczekuje</td>
+                                            <td><spring:message code="text.pending"/></td>
                                         </c:otherwise>
                                     </c:choose>
                                     <td>${donation.created.toString().substring(0,10)}</td>
@@ -68,7 +68,7 @@
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-dark px-3 mb-0 py-2"
                                            href="<c:url value="/donation/details/edit/${donation.id}"/>"><i
-                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i>Edytuj</a>
+                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i><spring:message code="text.edit"/></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -85,12 +85,12 @@
                         <c:when test="${currentPage > 1}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="/donation/details/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>">Previous</a>
+                                   href="<c:url value="/donation/details/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message code="text.previous"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li class="page-item disabled">
-                                <a class="page-link">Previous</a>
+                                <a class="page-link"><spring:message code="text.previous"/></a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -110,12 +110,12 @@
                         <c:when test="${currentPage < totalPages}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="/donation/details/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>">Next</a>
+                                   href="<c:url value="/donation/details/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message code="text.next"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <li class="page-item disabled">
-                                <a class="page-link">Next</a>
+                                <a class="page-link"><spring:message code="text.next"/></a>
                             </li>
                         </c:otherwise>
                     </c:choose>

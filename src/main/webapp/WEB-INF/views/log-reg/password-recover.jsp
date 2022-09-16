@@ -4,13 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../header.jsp"/>
 <section class="login-page">
-    <h2>Podaj email w celu przypomnienia hasła:</h2>
-    <form method="post" action="<c:url value="${pageContext.request.contextPath}/password-recover"/>">
+    <h2><spring:message code="text.recoverPassword"/>:</h2>
+    <form method="post" action="<c:url value="/password-recover"/>">
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email"/>
+            <spring:message code="text.password" var="placeholderPassword" />
+            <input type="email" name="email" placeholder='${placeholderPassword}'/>
         </div>
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Wyślij</button>
+            <button class="btn" type="submit"><spring:message code="text.send"/></button>
         </div>
     </form>
 </section>

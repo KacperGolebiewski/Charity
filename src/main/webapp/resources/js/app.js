@@ -248,15 +248,13 @@ document.addEventListener("DOMContentLoaded", function () {
             let comments = document.querySelector('#pickUpComment').value
 
             if (quantity == 1) {
-                spanElementText.innerText = quantity + " worek zawierający : " + categories.join(", ")
+                spanElementText.innerText = quantity + " bag containing : " + categories.join(", ")
             }
-            if (quantity > 1 && quantity < 5) {
-                spanElementText.innerText = quantity + " worki zawierające : " + categories.join(", ")
+            if (quantity > 1) {
+                spanElementText.innerText = quantity + " bags containing : " + categories.join(", ")
             }
-            if (quantity >= 5) {
-                spanElementText.innerText = quantity + " worków zawierających : " + categories.join(", ")
-            }
-            spanElementText2.innerText = "Dla fundacji " + institution
+
+            spanElementText2.innerText = "For Institution " + institution
 
             streetLiElement.innerText = street;
             cityLiElement.innerText = city;

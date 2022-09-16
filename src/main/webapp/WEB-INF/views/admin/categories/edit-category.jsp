@@ -8,21 +8,23 @@
     <div class="container-custom py-5">
         <div class="card mb-4">
             <div class="card-header px-4 py-3 custom-display">
-                <span><strong>Edytuj Kategorię</strong></span>
+                <span><strong><spring:message code="text.editCategory"/></strong></span>
             </div>
             <div class="card-body">
                 <form:form modelAttribute="category">
-                    <div class="form-group ">
-                        <form:input type="text" path="name" placeholder="Nazwa"/>
+                    <div class="form-group">
+                        <spring:message code="text.name" var="placeholderName" />
+                        <form:input type="text" path="name" placeholder='${placeholderName}'/>
                         <span class="text-error">
                        <form:errors path="name"/>
                     </span>
                     </div>
                     <div class="form-group ">
                         <span class="description">
-                  <div class="title">Aktywny:</div>
+                  <div class="title"><spring:message code="text.active"/>:</div>
                 </span>
-                        <form:checkbox path="active" placeholder="Nazwa"/>
+
+                        <form:checkbox path="active"/>
                         <span class="text-error">
                        <form:errors path="active"/>
                     </span>
@@ -30,7 +32,7 @@
 
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit">Zapisz
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.save" />
                         </button>
                     </div>
                 </form:form>

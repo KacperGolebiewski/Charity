@@ -10,7 +10,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
+    <title><spring:message code="app.name"/></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -34,21 +34,22 @@
         <ul class="nav--actions">
             <sec:authorize access="isAuthenticated()">
                 <li class="logged-user">
-                    Witaj
+                    <spring:message code="hello.message"/>
                     <sec:authentication property="principal.firstName"/>
                     <ul class="dropdown">
                         <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
                             <li>
-                                <a href="<c:url value="${pageContext.request.contextPath}/admin/dashboard"/>">Admin</a>
+                                <a href="<c:url value="/admin/dashboard"/>"><spring:message code="text.admin"/></a>
                             </li>
                         </sec:authorize>
                         <li>
-                            <a href="<c:url value="${pageContext.request.contextPath}/user/details"/>">Profil</a>
+                            <a href="<c:url value="/user/details"/>"><spring:message code="text.profile"/></a>
                         </li>
-                        <li><a href="<c:url value="/donation/details"/>">Moje zbiórki</a></li>
+                        <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a></li>
                         <li>
                             <form action="<c:url value="/logout"/>" method="post">
-                                <input class="logout" type="submit" value="Wyloguj"/>
+                                <spring:message code="text.signOut" var="signOut"/>
+                                <input class="logout" type="submit" value='${signOut}'/>
                                 <input type="hidden" name="${_csrf.parameterName}"
                                        value="${_csrf.token}"/>
                             </form>
@@ -59,25 +60,25 @@
         </ul>
         <ul>
             <sec:authorize access="isAuthenticated()">
-                <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>"
-                       class="btn btn--without-border active">Start</a></li>
+                <li><a href="<c:url value="/donation"/>"
+                       class="btn btn--without-border active"><spring:message code="text.start"/></a></li>
             </sec:authorize>
             <sec:authorize access="!isAuthenticated()">
-                <li><a href="<c:url value="${pageContext.request.contextPath}/"/>"
-                       class="btn btn--without-border active">Start</a></li>
+                <li><a href="<c:url value="/"/>"
+                       class="btn btn--without-border active"><spring:message code="text.start"/></a></li>
             </sec:authorize>
-            <li><a href="<c:url value="${pageContext.request.contextPath}/#how-it-works"/>"
-                   class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="<c:url value="${pageContext.request.contextPath}/#about-us" />"
+            <li><a href="<c:url value="/#how-it-works"/>"
+                   class="btn btn--without-border"><spring:message code="text.howDoesItWork"/></a></li>
+            <li><a href="<c:url value="/#about-us" />"
                    class="btn btn--without-border">O nas</a></li>
             <sec:authorize access="!isAuthenticated()">
-                <li><a href="<c:url value="${pageContext.request.contextPath}/donation"/>"
-                       class="btn btn--without-border">Przekaż dary</a></li>
+                <li><a href="<c:url value="/donation"/>"
+                       class="btn btn--without-border"><spring:message code="text.donateIt"/></a></li>
             </sec:authorize>
-            <li><a href="<c:url value="${pageContext.request.contextPath}/#institutions"/>"
-                   class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="<c:url value="${pageContext.request.contextPath}/#contact"/>"
-                   class="btn btn--without-border">Kontakt</a></li>
+            <li><a href="<c:url value="/#institutions"/>"
+                   class="btn btn--without-border"><spring:message code="text.institutions"/></a></li>
+            <li><a href="<c:url value="/#contact"/>"
+                   class="btn btn--without-border"><spring:message code="text.Contact"/></a></li>
         </ul>
 
     </nav>

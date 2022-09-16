@@ -28,7 +28,7 @@ public class Message {
     @Email
     private String email;
     @NotBlank
-    private String message;
+    private String messageField;
 
     @Column(name = "created")
     private LocalDateTime created;
