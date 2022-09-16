@@ -25,7 +25,7 @@ public class DonationServiceImpl implements DonationService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser user = appUserRepository.findByEmail(auth.getName()).orElse(null);
-        return this.donationRepository.findAllByUserId(user.getId(), pageable);
+        return this.donationRepository.findAllByUserIdPaginated(user.getId(), pageable);
     }
 
 

@@ -7,7 +7,7 @@
 <section class="login-page">
     <h2><spring:message code="text.signUp"/></h2>
     <%--@elvariable id="request" type="pl.coderslab.charity.registration.RegistrationRequest"--%>
-    <form:form modelAttribute="request">
+    <form:form modelAttribute="request" commandName="request">
         <div class="form-group">
             <spring:message code="text.firstName" var="placeholderName" />
             <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
@@ -34,6 +34,13 @@
             <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
             <span class="text-error">
                        <form:errors path="password"/>
+                    </span>
+        </div>
+        <div class="form-group">
+            <spring:message code="text.repeatPassword" var="placeholderMatchingPassword" />
+            <form:input type="password" path="matchingPassword" placeholder='${placeholderMatchingPassword}'/>
+            <span class="text-error">
+                       <form:errors/>
                     </span>
         </div>
         <div class="form-group form-group--buttons">

@@ -25,9 +25,9 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
     Optional<Donation> findDonationByInstitutionId(Long id);
 
     @Query("select d from Donation d where d.user.id =?1")
-    Page<Donation> findAllByUserId(Long id, Pageable pageable);
+    Page<Donation> findAllByUserIdPaginated(Long id, Pageable pageable);
 
-    Donation findByUserId(Long id);
+    List<Donation> findAllByUserId(Long id);
 
 
 }

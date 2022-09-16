@@ -1,6 +1,8 @@
 package pl.coderslab.charity.registration;
 
 import lombok.*;
+import pl.coderslab.charity.validation.PasswordMatches;
+import pl.coderslab.charity.validation.ValidEmail;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
+@PasswordMatches
 public class RegistrationRequest {
 
     @NotNull
@@ -27,7 +30,7 @@ public class RegistrationRequest {
     @Column(nullable = false, unique = true, length = 60)
     @NotNull
     @NotEmpty
-    @Email
+    @ValidEmail
     private String email;
 
     @NotNull

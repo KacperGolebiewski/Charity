@@ -40,6 +40,13 @@
                        <form:errors path="password"/>
                     </span>
                     </div>
+                    <div class="form-group">
+                        <spring:message code="text.repeatPassword" var="placeholderRepeatPassword" />
+                        <form:input type="password" path="matchingPassword" placeholder='${placeholderRepeatPasswordPassword}'/>
+                        <span class="text-error">
+                       <form:errors/>
+                    </span>
+                    </div>
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
                                 class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.add"/>

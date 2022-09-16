@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.coderslab.charity.validation.ValidEmail;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -29,7 +30,7 @@ public class AppUser implements UserDetails {
     @NotBlank
     private String lastName;
     @NotBlank
-    @Email
+    @ValidEmail
     private String email;
     @NotBlank
     private String password;

@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -133,6 +134,10 @@ public class AdminController {
         if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
             throw new IllegalStateException("Cannot delete currently logged admin");
         } else {
+            List<Donation> donations = donationRepository.findAllByUserId(id);
+            for (Donation donation: donations) {
+                donation.setUser(null);
+            }
             appUserRepository.deleteById(id);
         }
         return "redirect:/admin/dashboard";
@@ -209,8 +214,10 @@ public class AdminController {
         if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
             throw new IllegalStateException("Cannot delete currently logged admin");
         } else {
-            Donation donation = donationRepository.findByUserId(id);
-            donation.setUser(null);
+            List<Donation> donations = donationRepository.findAllByUserId(id);
+            for (Donation donation: donations) {
+                donation.setUser(null);
+            }
             appUserRepository.deleteById(id);
         }
         return "redirect:/admin/users";
