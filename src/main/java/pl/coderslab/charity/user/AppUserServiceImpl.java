@@ -53,8 +53,6 @@ public class AppUserServiceImpl implements UserDetailsService, AppUserService {
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        //TODO: SEND EMAIL
-
         return token;
     }
 

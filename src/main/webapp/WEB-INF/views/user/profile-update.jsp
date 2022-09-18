@@ -9,6 +9,11 @@
     <%--@elvariable id="appUser" type="pl.coderslab.charity.user.AppUser"--%>
     <form:form modelAttribute="appUser" method="post" action="/user/details/edit">
         <div class="form-group">
+            <form:input type="hidden" path="id"/>
+            <form:input type="hidden" path="email"/>
+            <form:input type="hidden" path="appUserRole"/>
+            <form:input type="hidden" path="locked"/>
+            <form:input type="hidden" path="enabled"/>
             <spring:message code="text.firstName" var="placeholderName" />
             <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
             <span class="text-error">
@@ -28,10 +33,6 @@
             <span class="text-error">
                        <form:errors path="password"/>
                     </span>
-        </div>
-        <div class="form-group">
-            <spring:message code="text.repeatPassword" var="placeholderRepeatPassword" />
-            <input type="password" name="repeat-password" placeholder='${placeholderRepeatPassword}'/>
         </div>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit"><spring:message code="text.send"/></button>

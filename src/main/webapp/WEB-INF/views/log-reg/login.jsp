@@ -13,7 +13,7 @@
         <div class="form-group">
             <spring:message code="text.password" var="placeholderPassword" />
             <input type="password" name="password" placeholder='${placeholderPassword}'/>
-            <a href="<c:url value="/password-recover"/>"
+            <a href="<c:url value="/forgot-password"/>"
                class="btn btn--small btn--without-border reset-password"><spring:message code="text.forgotPassword"/></a>
         </div>
 

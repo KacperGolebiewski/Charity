@@ -39,20 +39,14 @@ public class AppUserController {
 
     @PostMapping("/details/edit")
     String updateDetailsSave(@Valid AppUser user, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return "user/profile-update";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        AppUser tempUser = (AppUser) auth.getPrincipal();
-        tempUser.setFirstName(user.getFirstName());
-        tempUser.setLastName(user.getLastName());
-        tempUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-        appUserRepository.save(tempUser);
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        appUserRepository.save(user);
 
         return "redirect:/user/details";
     }
-
-
 }
