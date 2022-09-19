@@ -129,6 +129,7 @@ public class AdminController {
     }
 
     @GetMapping("/dashboard/delete/{id}")
+    @Transactional
     String adminDelete(@PathVariable long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {

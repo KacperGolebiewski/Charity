@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.CategoryRepository;
 import pl.coderslab.charity.institution.InstitutionRepository;
+import pl.coderslab.charity.sms.SmsService;
 import pl.coderslab.charity.user.AppUser;
 import pl.coderslab.charity.user.AppUserRepository;
 
@@ -27,6 +28,7 @@ public class DonationController {
     private final InstitutionRepository institutionRepository;
     private final AppUserRepository appUserRepository;
     private final DonationService donationService;
+    private final SmsService smsService;
 
     @GetMapping("/details")
     public String viewDonationsPages(Model model) {
@@ -53,14 +55,13 @@ public class DonationController {
             return "user/donation/donation";
         }
         donationRepository.save(donation);
-        return "redirect:/donation/confirmation";
+        return "redirect:/donation/confirmation/"+donation.getId();
     }
 
-    @GetMapping("/confirmation")
-    String showConfirmation(Model model) {
-        model.addAttribute("donation", new Donation());
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("institutions", institutionRepository.findAll());
+    @GetMapping("/confirmation/{id}")
+    String showConfirmation(@PathVariable long id) {
+       Donation donation = donationRepository.findById(id).get();
+        smsService.send(donation.getPhoneNumber(),donation);
         return "user/donation/donation-confirmation";
     }
 

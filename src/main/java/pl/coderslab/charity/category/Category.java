@@ -1,10 +1,7 @@
 package pl.coderslab.charity.category;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Category {
 
     @Id
@@ -23,4 +21,9 @@ public class Category {
     @Column(nullable = false, unique = true, length = 60)
     private String name;
     private boolean active = true;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -63,9 +63,11 @@
                                 <ul class="nav--actions">
                                     <sec:authorize access="!isAuthenticated()">
                                         <li><a href="<c:url value="/login"/>"
-                                               class="btn btn--small btn--without-border"><spring:message code="text.login"/></a></li>
+                                               class="btn btn--small btn--without-border"><spring:message
+                                                code="text.login"/></a></li>
                                         <li><a href="<c:url value="/register"/>"
-                                               class="btn btn--small btn--highlighted"><spring:message code="text.signUp"/></a></li>
+                                               class="btn btn--small btn--highlighted"><spring:message
+                                                code="text.signUp"/></a></li>
                                     </sec:authorize>
                                     <sec:authorize access="isAuthenticated()">
                                         <li class="logged-user">
@@ -74,13 +76,16 @@
                                             <ul class="dropdown">
                                                 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
                                                     <li>
-                                                        <a href="<c:url value="/admin/dashboard"/>"><spring:message code="text.admin"/></a>
+                                                        <a href="<c:url value="/admin/dashboard"/>"><spring:message
+                                                                code="text.admin"/></a>
                                                     </li>
                                                 </sec:authorize>
                                                 <li>
-                                                    <a href="<c:url value="/user/details"/>"><spring:message code="text.profile"/></a>
+                                                    <a href="<c:url value="/user/details"/>"><spring:message
+                                                            code="text.profile"/></a>
                                                 </li>
-                                                <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a></li>
+                                                <li><a href="<c:url value="/donation/details"/>"><spring:message
+                                                        code="text.myDonations"/></a></li>
                                                 <li>
                                                     <form action="<c:url value="/logout"/>" method="post">
                                                         <spring:message code="text.signOut" var="singOut"/>
@@ -96,85 +101,38 @@
                                 <ul>
                                     <sec:authorize access="isAuthenticated()">
                                         <li><a href="<c:url value="/donation"/>"
-                                               class="btn btn--without-border active"><spring:message code="text.start"/></a></li>
+                                               class="btn btn--without-border active"><spring:message
+                                                code="text.start"/></a></li>
                                     </sec:authorize>
                                     <sec:authorize access="!isAuthenticated()">
                                         <li><a href="<c:url value="/"/>"
-                                               class="btn btn--without-border active"><spring:message code="text.start"/></a></li>
+                                               class="btn btn--without-border active"><spring:message
+                                                code="text.start"/></a></li>
                                     </sec:authorize>
                                     <li><a href="<c:url value="/#how-it-works"/>"
-                                           class="btn btn--without-border"><spring:message code="text.howDoesItWork"/></a></li>
+                                           class="btn btn--without-border"><spring:message
+                                            code="text.howDoesItWork"/></a></li>
                                     <li><a href="<c:url value="/#about-us" />"
-                                           class="btn btn--without-border"><spring:message code="text.aboutUs"/></a></li>
+                                           class="btn btn--without-border"><spring:message code="text.aboutUs"/></a>
+                                    </li>
                                     <sec:authorize access="!isAuthenticated()">
                                         <li><a href="<c:url value="/donation"/>"
-                                               class="btn btn--without-border"><spring:message code="text.donateIt"/></a></li>
+                                               class="btn btn--without-border"><spring:message
+                                                code="text.donateIt"/></a></li>
                                     </sec:authorize>
                                     <li><a href="<c:url value="/#institutions"/>"
-                                           class="btn btn--without-border"><spring:message code="text.institutions"/></a></li>
+                                           class="btn btn--without-border"><spring:message
+                                            code="text.institutions"/></a></li>
                                     <li><a href="<c:url value="/#contact"/>"
-                                           class="btn btn--without-border"><spring:message code="text.Contact"/></a></li>
-
-
+                                           class="btn btn--without-border"><spring:message code="text.Contact"/></a>
+                                    </li>
                                 </ul>
                             </nav>
-                            <sec:authorize access="!isAuthenticated()">
-                                <c:choose>
-                                    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/'}">
-                                        <div class="slogan container container--90">
-                                            <div class="slogan--item">
-                                                <h1>
-                                                    <spring:message code="text.startHelping"/><br/>
-                                                    <spring:message code="text.unwantedStuff"/>
-                                                </h1>
-                                            </div>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise></c:otherwise>
-                                </c:choose>
-                            </sec:authorize>
-                            <sec:authorize access="isAuthenticated()">
-                                <c:choose>
-                                    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/donation/confirmation/'}">
-                                        <div class="slogan container container--90">
-                                            <h2>
-                                                <spring:message code="text.submittingForm"/><br>
-                                                <spring:message code="text.phoneConfirmation"/>
-                                            </h2>
-                                        </div>
-                                    </c:when>
-                                    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/user/details'}"></c:when>
-                                    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/user/details/edit'}"></c:when>
-                                    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/contact-us'}"></c:when>
-                                    <c:when test="${requestScope['javax.servlet.forward.request_uri']=='/donation/details'}"></c:when>
-                                    <c:otherwise>
-                                        <div class="slogan container container--90">
-                                            <div class="slogan--item">
-                                                <h1>
-                                                    <spring:message code="text.giveBackItems"/><br>
-                                                    <span class="uppercase"><spring:message code="text.inNeed"/></span>
-                                                </h1>
-                                                <div class="slogan--steps">
-                                                    <div class="slogan--steps-title"><spring:message code="text.4steps"/></div>
-                                                    <ul class="slogan--steps-boxes">
-                                                        <li>
-                                                            <div><em>1</em><span><spring:message code="text.chooseItems"/></span></div>
-                                                        </li>
-                                                        <li>
-                                                            <div><em>2</em><span><spring:message code="text.putInBags"/></span></div>
-                                                        </li>
-                                                        <li>
-                                                            <div><em>3</em><span><spring:message code="text.chooseInstitution"/></span></div>
-                                                        </li>
-                                                        <li>
-                                                            <div><em>4</em><span><spring:message code="text.orderCourier"/></span></div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                            </sec:authorize>
+                            <div class="slogan container container--90">
+                                <h2>
+                                    <spring:message code="text.submittingForm"/><br>
+                                    <spring:message code="text.phoneConfirmation"/>
+                                </h2>
+                            </div>
                         </header>
 

@@ -1,9 +1,6 @@
 package pl.coderslab.charity.donation;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +20,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Donation {
 
     @Id
@@ -31,7 +29,7 @@ public class Donation {
     @NotNull
     @Min(1)
     private Integer quantity;
-    @NotEmpty
+
     @ManyToMany
     private List<Category> categories;
     @NotNull

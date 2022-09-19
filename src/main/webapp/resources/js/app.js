@@ -222,7 +222,6 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
             this.$step.parentElement.hidden = this.currentStep >= 5;
 
-            // TODO: get data from inputs and show them in summary
             let quantity = document.querySelector('#quantity').value
 
             let categories = [];
@@ -236,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('#institution').forEach(function (element) {
                 if (element.checked === true) {
                     let text = element.parentElement.lastElementChild.firstElementChild.innerText
-                    institution = text.substring(8, text.length).trim()
+                    institution = text.substring(12, text.length).trim()
                 }
             })
             let street = document.querySelector('#street').value
