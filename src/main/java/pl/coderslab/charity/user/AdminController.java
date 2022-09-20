@@ -23,6 +23,7 @@ import pl.coderslab.charity.message.MessageService;
 import pl.coderslab.charity.registration.RegistrationRequest;
 import pl.coderslab.charity.registration.RegistrationService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -98,7 +99,7 @@ public class AdminController {
 
     @GetMapping("/dashboard/edit/{id}")
     String adminEdit(@PathVariable long id, Model model) {
-        model.addAttribute("admin", appUserRepository.findById(id).orElse(null));
+        model.addAttribute("admin", appUserRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         return "admin/admins/edit-admin";
     }
 
@@ -123,7 +124,7 @@ public class AdminController {
 
     @GetMapping("/dashboard/confirm-delete/{id}")
     String adminConfirmDelete(@PathVariable long id, Model model) {
-        model.addAttribute("admin", appUserRepository.findById(id).orElse(null));
+        model.addAttribute("admin", appUserRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         model.addAttribute("id", id);
         return "admin/admins/delete-admin";
     }
@@ -132,14 +133,16 @@ public class AdminController {
     @Transactional
     String adminDelete(@PathVariable long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
-            throw new IllegalStateException("Cannot delete currently logged admin");
-        } else {
-            List<Donation> donations = donationRepository.findAllByUserId(id);
-            for (Donation donation: donations) {
-                donation.setUser(null);
+        if(appUserRepository.findById(id).isPresent()) {
+            if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
+                throw new IllegalStateException("Cannot delete currently logged admin");
+            } else {
+                List<Donation> donations = donationRepository.findAllByUserId(id);
+                for (Donation donation : donations) {
+                    donation.setUser(null);
+                }
+                appUserRepository.deleteById(id);
             }
-            appUserRepository.deleteById(id);
         }
         return "redirect:/admin/dashboard";
     }
@@ -179,7 +182,7 @@ public class AdminController {
 
     @GetMapping("/users/edit/{id}")
     String adminUserEdit(@PathVariable long id, Model model) {
-        model.addAttribute("user", appUserRepository.findById(id).orElse(null));
+        model.addAttribute("user", appUserRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         return "admin/users/edit-user";
     }
 
@@ -204,7 +207,7 @@ public class AdminController {
 
     @GetMapping("/users/confirm-delete/{id}")
     String adminUserConfirmDelete(@PathVariable long id, Model model) {
-        model.addAttribute("user", appUserRepository.findById(id).orElse(null));
+        model.addAttribute("user", appUserRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         model.addAttribute("id", id);
         return "admin/users/delete-user";
     }
@@ -212,6 +215,9 @@ public class AdminController {
     @GetMapping("/users/delete/{id}")
     String adminUserDelete(@PathVariable long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(appUserRepository.findById(id).isEmpty()){
+            throw new EntityNotFoundException();
+        }
         if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
             throw new IllegalStateException("Cannot delete currently logged admin");
         } else {
@@ -258,7 +264,7 @@ public class AdminController {
 
     @GetMapping("/institutions/edit/{id}")
     String adminInstitutionsEdit(@PathVariable long id, Model model) {
-        model.addAttribute("institution", institutionRepository.findById(id).orElse(null));
+        model.addAttribute("institution", institutionRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         return "admin/institutions/edit-institution";
     }
 
@@ -295,9 +301,12 @@ public class AdminController {
 
     @GetMapping("/institutions/archive/{id}")
     String adminInstitutionsArchive(@PathVariable long id) {
-        Institution institution = institutionRepository.findById(id).get();
-        institution.setActive(false);
-        institutionRepository.save(institution);
+        if(institutionRepository.findById(id).isEmpty()){
+            throw new EntityNotFoundException();
+        }
+            Institution institution = institutionRepository.findById(id).get();
+            institution.setActive(false);
+            institutionRepository.save(institution);
         return "redirect:/admin/institutions";
     }
 
@@ -325,7 +334,7 @@ public class AdminController {
 
     @GetMapping("/categories/edit/{id}")
     String adminCategoriesEdit(@PathVariable long id, Model model) {
-        model.addAttribute("category", categoryRepository.findById(id).orElse(null));
+        model.addAttribute("category", categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         return "admin/categories/edit-category";
     }
 
@@ -362,9 +371,13 @@ public class AdminController {
 
     @GetMapping("/categories/archive/{id}")
     String adminCategoriesArchive(@PathVariable long id) {
+        if(categoryRepository.findById(id).isEmpty()){
+            throw new EntityNotFoundException();
+        }
         Category category = categoryRepository.findById(id).get();
         category.setActive(false);
         categoryRepository.save(category);
+
         return "redirect:/admin/categories";
     }
 

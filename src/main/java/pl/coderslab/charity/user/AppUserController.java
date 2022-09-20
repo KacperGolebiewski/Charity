@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @Controller
@@ -26,14 +27,14 @@ public class AppUserController {
     @GetMapping("/details")
     String userDetails(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", appUserRepository.findByEmail(auth.getName()).orElse(null));
+        model.addAttribute("user", appUserRepository.findByEmail(auth.getName()).orElseThrow(EntityNotFoundException::new));
         return "user/profile";
     }
 
     @GetMapping("/details/edit")
     String userDetailsUpdate(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("appUser", appUserRepository.findByEmail(auth.getName()).orElse(null));
+        model.addAttribute("appUser", appUserRepository.findByEmail(auth.getName()).orElseThrow(EntityNotFoundException::new));
         return "user/profile-update";
     }
 

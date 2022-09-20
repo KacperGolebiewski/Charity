@@ -11,6 +11,7 @@ import pl.coderslab.charity.registration.RegistrationRequest;
 import pl.coderslab.charity.user.AppUser;
 import pl.coderslab.charity.user.AppUserRepository;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
 
 @Controller
@@ -45,7 +46,7 @@ public class PasswordRecoveryController {
 
     @GetMapping("/reset-password/{id}")
     public String resetPassword(@PathVariable Long id, Model model) {
-        AppUser appUser = appUserRepository.findById(id).get();
+        AppUser appUser = appUserRepository.findById(id).orElseThrow(EntityExistsException::new);
         RegistrationRequest request = new RegistrationRequest();
         request.setFirstName(appUser.getFirstName());
         request.setLastName(appUser.getLastName());

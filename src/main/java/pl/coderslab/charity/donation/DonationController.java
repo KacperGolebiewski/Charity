@@ -15,6 +15,7 @@ import pl.coderslab.charity.sms.SmsService;
 import pl.coderslab.charity.user.AppUser;
 import pl.coderslab.charity.user.AppUserRepository;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class DonationController {
 
     @GetMapping("/confirmation/{id}")
     String showConfirmation(@PathVariable long id) {
-       Donation donation = donationRepository.findById(id).get();
+       Donation donation = donationRepository.findById(id).orElseThrow(EntityExistsException::new);
         smsService.send(donation.getPhoneNumber(),donation);
         return "user/donation/donation-confirmation";
     }
@@ -91,7 +92,7 @@ public class DonationController {
 
     @PostMapping("/details/edit/{id}")
     String adminCategoriesUpdate(@PathVariable long id, Donation donation) {
-        Donation updatedDonation = donationRepository.findById(id).get();
+        Donation updatedDonation = donationRepository.findById(id).orElseThrow(EntityExistsException::new);
         updatedDonation.setDelivered(donation.isDelivered());
         donationRepository.save(updatedDonation);
         return "redirect:/donation/details";
