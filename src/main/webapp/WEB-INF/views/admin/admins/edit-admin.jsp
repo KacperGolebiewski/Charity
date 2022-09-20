@@ -12,31 +12,31 @@
             </div>
             <div class="card-body">
                 <form:form modelAttribute="admin">
-                    <div class="form-group">
-                        <spring:message code="text.firstName" var="placeholderName" />
-                        <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
-                        <span class="text-error">
+                <div class="form-group">
+                    <spring:message code="text.firstName" var="placeholderName"/>
+                    <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
+                    <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
-                    </div>
-                    <div class="form-group">
-                        <spring:message code="text.lastName" var="placeholderLastName" />
-                        <form:input type="text" path="lastName" placeholder='${placeholderLastName}'/>
-                        <span class="text-error">
+                </div>
+                <div class="form-group">
+                    <spring:message code="text.lastName" var="placeholderLastName"/>
+                    <form:input type="text" path="lastName" placeholder='${placeholderLastName}'/>
+                    <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
-                    </div>
-                    <div class="form-group">
-                        <spring:message code="text.email" var="placeholderEmail" />
-                        <form:input type="email" path="email" placeholder='${placeholderEmail}'/>
-                        <span class="text-error">
+                </div>
+                <div class="form-group">
+                    <spring:message code="text.email" var="placeholderEmail"/>
+                    <form:input type="email" path="email" placeholder='${placeholderEmail}'/>
+                    <span class="text-error">
                        <form:errors path="email"/>
                     </span>
-                    </div>
-                    <div class="form-group">
-                        <spring:message code="text.password" var="placeholderPassword" />
-                        <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
-                        <span class="text-error">
+                </div>
+                <div class="form-group">
+                    <spring:message code="text.password" var="placeholderPassword"/>
+                    <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
+                    <span class="text-error">
                        <form:errors path="password"/>
                     </span>
                 </div>
@@ -57,7 +57,8 @@
                 <div class="form-group ">
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.save"/>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message
+                                code="text.save"/>
                         </button>
                     </div>
                     </form:form>

@@ -14,28 +14,28 @@
             <form:input type="hidden" path="appUserRole"/>
             <form:input type="hidden" path="locked"/>
             <form:input type="hidden" path="enabled"/>
-            <spring:message code="text.firstName" var="placeholderName" />
+            <spring:message code="text.firstName" var="placeholderName"/>
             <form:input type="text" path="firstName" placeholder='${placeholderName}' disabled="true"/>
             <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.lastName" var="placeholderlastName" />
+            <spring:message code="text.lastName" var="placeholderlastName"/>
             <form:input type="text" path="lastName" placeholder='${placeholderlastName}' disabled="true"/>
             <span class="text-error">
                        <form:errors path="lastName"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.password" var="placeholderPassword" />
+            <spring:message code="text.password" var="placeholderPassword"/>
             <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
             <span class="text-error">
                        <form:errors path="password"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.repeatPassword" var="placeholderRepeatPassword" />
+            <spring:message code="text.repeatPassword" var="placeholderRepeatPassword"/>
             <input type="password" name="repeatPassword" placeholder='${placeholderRepeatPassword}'/>
         </div>
         <div class="form-group form-group--buttons">

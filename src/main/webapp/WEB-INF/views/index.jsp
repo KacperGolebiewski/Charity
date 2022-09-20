@@ -78,13 +78,15 @@
                     <li>
                     <div class="col">
                         <div class="title"><spring:message code="text.institution"/> "${institution.name}"</div>
-                        <div class="subtitle"><spring:message code="text.purposeAndMission"/>: ${institution.description}</div>
+                        <div class="subtitle"><spring:message
+                                code="text.purposeAndMission"/>: ${institution.description}</div>
                     </div>
                 </c:if>
                 <c:if test="${status.index %2 != 0}">
                     <div class="col">
                         <div class="title"><spring:message code="text.institution"/> "${institution.name}"</div>
-                        <div class="subtitle"><spring:message code="text.purposeAndMission"/>: ${institution.description}</div>
+                        <div class="subtitle"><spring:message
+                                code="text.purposeAndMission"/>: ${institution.description}</div>
                     </div>
                     </li>
                 </c:if>

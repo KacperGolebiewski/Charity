@@ -39,10 +39,11 @@
                     <ul class="dropdown">
                         <li><a href="<c:url value="/admin/dashboard"/>"><spring:message code="text.admin"/></a></li>
                         <li><a href="<c:url value="/user/details"/>"><spring:message code="text.profile"/></a></li>
-                        <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a></li>
+                        <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a>
+                        </li>
                         <li>
                             <form action="<c:url value="/logout"/>" method="post">
-                                <spring:message code="text.logOut" var="logOut" />
+                                <spring:message code="text.logOut" var="logOut"/>
                                 <input class="logout" type="submit" value='${logOut}'/>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>

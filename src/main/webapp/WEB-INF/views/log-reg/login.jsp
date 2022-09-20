@@ -7,18 +7,20 @@
     <h2><spring:message code="text.login"/></h2>
     <form method="post" action="/login">
         <div class="form-group">
-            <spring:message code="text.email" var="placeholderEmail" />
+            <spring:message code="text.email" var="placeholderEmail"/>
             <input type="email" name="email" placeholder='${placeholderEmail}'/>
         </div>
         <div class="form-group">
-            <spring:message code="text.password" var="placeholderPassword" />
+            <spring:message code="text.password" var="placeholderPassword"/>
             <input type="password" name="password" placeholder='${placeholderPassword}'/>
             <a href="<c:url value="/forgot-password"/>"
-               class="btn btn--small btn--without-border reset-password"><spring:message code="text.forgotPassword"/></a>
+               class="btn btn--small btn--without-border reset-password"><spring:message
+                    code="text.forgotPassword"/></a>
         </div>
 
         <div class="form-group form-group--buttons">
-            <a href="<c:url value="/register"/>" class="btn btn--without-border"><spring:message code="text.signUp"/></a>
+            <a href="<c:url value="/register"/>" class="btn btn--without-border"><spring:message
+                    code="text.signUp"/></a>
             <button class="btn" type="submit"><spring:message code="text.login"/></button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>

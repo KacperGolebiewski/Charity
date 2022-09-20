@@ -12,20 +12,20 @@
             </div>
             <div class="card-body">
                 <form:form modelAttribute="institution">
-                    <div class="form-group">
-                        <spring:message code="text.name" var="placeholderName" />
-                        <form:input type="text" path="name" placeholder='${placeholderName}'/>
-                        <span class="text-error">
+                <div class="form-group">
+                    <spring:message code="text.name" var="placeholderName"/>
+                    <form:input type="text" path="name" placeholder='${placeholderName}'/>
+                    <span class="text-error">
                        <form:errors path="name"/>
                     </span>
-                    </div>
-                    <div class="form-group">
-                        <spring:message code="text.description" var="placeholderDescription" />
-                        <form:textarea type="text" path="description" placeholder='${placeholderDescription}' rows="3"/>
-                        <span class="text-error">
+                </div>
+                <div class="form-group">
+                    <spring:message code="text.description" var="placeholderDescription"/>
+                    <form:textarea type="text" path="description" placeholder='${placeholderDescription}' rows="3"/>
+                    <span class="text-error">
                        <form:errors path="description"/>
                     </span>
-                    </div>
+                </div>
                 <div class="form-group form-group--checkbox">
                     <div class="title"><spring:message code="text.active"/></div>
                     <label>
@@ -36,7 +36,8 @@
                 <div class="form-group ">
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.save"/>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message
+                                code="text.save"/>
                         </button>
                     </div>
                     </form:form>

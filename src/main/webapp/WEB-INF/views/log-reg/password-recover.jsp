@@ -6,9 +6,9 @@
 <jsp:include page="../header.jsp"/>
 <section class="login-page">
     <h2><spring:message code="text.recoverPassword"/>:</h2>
-    <form  method="post" action="/forgot-password">
+    <form method="post" action="/forgot-password">
         <div class="form-group">
-            <spring:message code="text.password" var="placeholderPassword" />
+            <spring:message code="text.password" var="placeholderPassword"/>
             <label>
                 <input type="email" name="email" placeholder='${placeholderPassword}'/>
             </label>

@@ -31,7 +31,7 @@ public class PasswordRecoveryController {
 
 
     @PostMapping
-    public String createToken(@RequestParam(value= "email") String email) {
+    public String createToken(@RequestParam(value = "email") String email) {
         passwordRecoveryService.sendToken(email);
         return "redirect:/";
     }
@@ -62,10 +62,7 @@ public class PasswordRecoveryController {
             return "log-reg/reset-password";
         }
         String password = bCryptPasswordEncoder.encode(request.getPassword());
-        String email = request.getEmail();
-        appUserRepository.updatePassword(password, email);
+        appUserRepository.updatePassword(password, request.getEmail());
         return "redirect:/login";
-
     }
-
 }

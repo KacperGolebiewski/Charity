@@ -37,11 +37,13 @@
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
                                            href="<c:url value="/admin/categories/confirm-delete/${category.id}"/>"><i
-                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i><spring:message code="text.delete"/></a>
+                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i><spring:message
+                                                code="text.delete"/></a>
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-dark px-3 mb-0 py-2"
                                            href="<c:url value="/admin/categories/edit/${category.id}"/>"><i
-                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i><spring:message code="text.edit"/></a>
+                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i><spring:message
+                                                code="text.edit"/></a>
                                     </td>
                                 </tr>
                             </c:forEach>

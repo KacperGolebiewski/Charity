@@ -37,7 +37,7 @@ public class RegistrationService {
         return token;
     }
 
-    public String registerAdmin(RegistrationRequest request) {
+    public void registerAdmin(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail) {
@@ -49,11 +49,10 @@ public class RegistrationService {
 
         String link = "http://localhost:8080/register/confirm/" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
-        return token;
     }
 
     @Transactional
-    public String confirmToken(String token) {
+    public void confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token).orElseThrow(() -> new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
@@ -68,7 +67,6 @@ public class RegistrationService {
 
         confirmationTokenService.setConfirmedAt(token);
         appUserServiceImpl.enableAppUser(confirmationToken.getAppUser().getEmail());
-        return "confirmed";
     }
 
     private String buildEmail(String name, String link) {

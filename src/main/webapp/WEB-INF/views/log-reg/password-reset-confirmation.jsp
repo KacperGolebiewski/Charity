@@ -7,7 +7,8 @@
     <h2>
         <spring:message code="text.changePasswordConfirmation"/>
         <div class="form-group form-group--buttons">
-            <a href="<c:url value="/forgot-password/reset-password/${id}"/>" class="btn btn--without-border"><spring:message code="text.reset"/></a>
+            <a href="<c:url value="/forgot-password/reset-password/${id}"/>"
+               class="btn btn--without-border"><spring:message code="text.reset"/></a>
         </div>
     </h2>
 </div>

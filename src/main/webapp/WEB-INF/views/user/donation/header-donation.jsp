@@ -45,7 +45,8 @@
                         <li>
                             <a href="<c:url value="/user/details"/>"><spring:message code="text.profile"/></a>
                         </li>
-                        <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a></li>
+                        <li><a href="<c:url value="/donation/details"/>"><spring:message code="text.myDonations"/></a>
+                        </li>
                         <li>
                             <form action="<c:url value="/logout"/>" method="post">
                                 <spring:message code="text.signOut" var="signOut"/>

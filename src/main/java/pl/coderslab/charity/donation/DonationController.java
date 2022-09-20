@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.category.CategoryRepository;
 import pl.coderslab.charity.institution.InstitutionRepository;
 import pl.coderslab.charity.sms.SmsService;
+import pl.coderslab.charity.user.AdminController;
 import pl.coderslab.charity.user.AppUser;
 import pl.coderslab.charity.user.AppUserRepository;
 
@@ -56,30 +57,22 @@ public class DonationController {
             return "user/donation/donation";
         }
         donationRepository.save(donation);
-        return "redirect:/donation/confirmation/"+donation.getId();
+        return "redirect:/donation/confirmation/" + donation.getId();
     }
 
     @GetMapping("/confirmation/{id}")
     String showConfirmation(@PathVariable long id) {
-       Donation donation = donationRepository.findById(id).orElseThrow(EntityExistsException::new);
-        smsService.send(donation.getPhoneNumber(),donation);
+        Donation donation = donationRepository.findById(id).orElseThrow(EntityExistsException::new);
+        smsService.send(donation.getPhoneNumber(), donation);
         return "user/donation/donation-confirmation";
     }
 
     @GetMapping("/details/{pageNo}")
     String donationDetails(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
-        int pageSize = 10;
+        int pageSize = 5;
         Page<Donation> page = donationService.findDonationsPaginated(pageNo, pageSize, sortField, sortDir);
         List<Donation> donations = page.getContent();
-        System.out.println(donations);
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
+        AdminController.addAttribute(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements(), page);
         model.addAttribute("donations", donations);
         return "user/donation/details";
     }
@@ -97,6 +90,4 @@ public class DonationController {
         donationRepository.save(updatedDonation);
         return "redirect:/donation/details";
     }
-
-
 }

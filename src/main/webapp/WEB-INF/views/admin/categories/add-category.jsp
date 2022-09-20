@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form:form modelAttribute="category">
                     <div class="form-group">
-                        <spring:message code="text.name" var="placeholderName" />
+                        <spring:message code="text.name" var="placeholderName"/>
                         <form:input type="text" path="name" placeholder='${placeholderName}'/>
                         <span class="text-error">
                        <form:errors path="name"/>
@@ -22,7 +22,8 @@
 
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.add"/>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message
+                                code="text.add"/>
                         </button>
                     </div>
                 </form:form>

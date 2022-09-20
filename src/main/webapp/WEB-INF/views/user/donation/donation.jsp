@@ -140,7 +140,8 @@
                     <div class="form-section--column">
                         <h4><spring:message code="text.pickUpDate"/></h4>
                         <div class="form-group form-group--inline">
-                            <label><spring:message code="text.date"/> <form:input type="date" path="pickUpDate" id="date"/> </label>
+                            <label><spring:message code="text.date"/> <form:input type="date" path="pickUpDate"
+                                                                                  id="date"/> </label>
                             <span class="text-error">
                         <form:errors path="pickUpDate"/>
                     </span>
@@ -148,7 +149,8 @@
 
 
                         <div class="form-group form-group--inline">
-                            <label><spring:message code="text.pickUpTime"/> <form:input type="time" path="pickUpTime" id="time"/> </label>
+                            <label><spring:message code="text.pickUpTime"/> <form:input type="time" path="pickUpTime"
+                                                                                        id="time"/> </label>
                             <span class="text-error">
                        <form:errors path="pickUpTime"/>
                     </span>

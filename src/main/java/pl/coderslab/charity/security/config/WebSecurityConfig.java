@@ -56,7 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    Faker faker () {
+    Faker faker() {
         return new Faker();
     }
+
 }

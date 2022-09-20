@@ -18,7 +18,7 @@ public class PasswordRecoveryService {
     private final ForgottenPasswordTokenService forgottenPasswordTokenService;
     private final EmailSender emailSender;
 
-    public String sendToken(String email) {
+    public void sendToken(String email) {
         boolean emailExist = appUserRepository.findByEmail(email).isPresent();
 
         if (!emailExist) {
@@ -34,11 +34,10 @@ public class PasswordRecoveryService {
 
         String link = "http://localhost:8080/forgot-password/confirm/" + token;
         emailSender.send(email, buildEmail(appUser.getFirstName(), link));
-        return token;
     }
 
     @Transactional
-    public String confirmToken(String token) {
+    public void confirmToken(String token) {
         ForgottenPasswordToken forgottenPasswordToken = forgottenPasswordTokenService.getToken(token).orElseThrow(() -> new IllegalStateException("token not found"));
 
         if (forgottenPasswordToken.getConfirmedAt() != null) {
@@ -52,7 +51,6 @@ public class PasswordRecoveryService {
         }
 
         forgottenPasswordTokenService.setConfirmedAt(token);
-        return "confirmed";
     }
 
     private String buildEmail(String name, String link) {

@@ -11,8 +11,9 @@ public class PasswordMatchesValidator
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
     }
+
     @Override
-    public boolean isValid(Object obj, ConstraintValidatorContext context){
+    public boolean isValid(Object obj, ConstraintValidatorContext context) {
         RegistrationRequest request = (RegistrationRequest) obj;
         return request.getPassword().equals(request.getMatchingPassword());
     }

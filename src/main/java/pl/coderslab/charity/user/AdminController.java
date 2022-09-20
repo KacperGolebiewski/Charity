@@ -64,20 +64,13 @@ public class AdminController {
         return adminMessages(1, "created", "desc", model);
     }
 
-
+    //ADMIN SECTION START
     @GetMapping("/dashboard/{pageNo}")
     String adminDashboard(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
         int pageSize = 10;
         Page<AppUser> page = appUserService.findAdminsPaginated(pageNo, pageSize, sortField, sortDir);
         List<AppUser> admins = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
+        addAttribute(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements(), page);
         model.addAttribute("admins", admins);
         return "admin/admins/dashboard";
     }
@@ -133,7 +126,7 @@ public class AdminController {
     @Transactional
     String adminDelete(@PathVariable long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(appUserRepository.findById(id).isPresent()) {
+        if (appUserRepository.findById(id).isPresent()) {
             if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
                 throw new IllegalStateException("Cannot delete currently logged admin");
             } else {
@@ -147,20 +140,14 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
+    //ADIN SECTION END
+    //USER SECTION START
     @GetMapping("/users/{pageNo}")
     String adminUsers(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
         int pageSize = 20;
         Page<AppUser> page = appUserService.findUsersPaginated(pageNo, pageSize, sortField, sortDir);
         List<AppUser> users = page.getContent();
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
+        addAttribute(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements(), page);
         model.addAttribute("users", users);
         return "admin/users/users";
     }
@@ -215,34 +202,29 @@ public class AdminController {
     @GetMapping("/users/delete/{id}")
     String adminUserDelete(@PathVariable long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(appUserRepository.findById(id).isEmpty()){
+        if (appUserRepository.findById(id).isEmpty()) {
             throw new EntityNotFoundException();
         }
         if (auth.getName().equals(appUserRepository.findById(id).get().getEmail())) {
             throw new IllegalStateException("Cannot delete currently logged admin");
         } else {
             List<Donation> donations = donationRepository.findAllByUserId(id);
-            for (Donation donation: donations) {
+            for (Donation donation : donations) {
                 donation.setUser(null);
             }
             appUserRepository.deleteById(id);
         }
         return "redirect:/admin/users";
     }
+    //USER SECTION END
+    //INSTITUTION SECTION START
 
     @GetMapping("/institutions/{pageNo}")
     String adminInstitutions(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
         int pageSize = 10;
         Page<Institution> page = institutionService.findAllPaginated(pageNo, pageSize, sortField, sortDir);
         List<Institution> institutions = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
+        addAttribute(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements(), page);
         model.addAttribute("institutions", institutions);
         return "admin/institutions/institutions";
     }
@@ -301,19 +283,20 @@ public class AdminController {
 
     @GetMapping("/institutions/archive/{id}")
     String adminInstitutionsArchive(@PathVariable long id) {
-        if(institutionRepository.findById(id).isEmpty()){
+        if (institutionRepository.findById(id).isEmpty()) {
             throw new EntityNotFoundException();
         }
-            Institution institution = institutionRepository.findById(id).get();
-            institution.setActive(false);
-            institutionRepository.save(institution);
+        Institution institution = institutionRepository.findById(id).get();
+        institution.setActive(false);
+        institutionRepository.save(institution);
         return "redirect:/admin/institutions";
     }
 
+    //INSTITUTION SECTION END
+    //CATEGORY SECTION START
     @GetMapping("/categories")
     String adminCategories(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
-
         return "admin/categories/category";
     }
 
@@ -371,32 +354,27 @@ public class AdminController {
 
     @GetMapping("/categories/archive/{id}")
     String adminCategoriesArchive(@PathVariable long id) {
-        if(categoryRepository.findById(id).isEmpty()){
+        if (categoryRepository.findById(id).isEmpty()) {
             throw new EntityNotFoundException();
         }
         Category category = categoryRepository.findById(id).get();
         category.setActive(false);
         categoryRepository.save(category);
-
         return "redirect:/admin/categories";
     }
 
+    //Category SECTION END
+    //MESSAGE SECTION START
     @GetMapping("/messages/{pageNo}")
     String adminMessages(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
         int pageSize = 20;
         Page<Message> page = messageService.findAllPaginated(pageNo, pageSize, sortField, sortDir);
         List<Message> messages = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
+        addAttribute(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements(), page);
         model.addAttribute("messages", messages);
         return "admin/messages/messages";
     }
+
 
     @GetMapping("/messages/confirm-delete/{id}")
     String adminMessagesConfirmDelete(@PathVariable long id, Model model) {
@@ -406,9 +384,16 @@ public class AdminController {
 
     @GetMapping("/messages/delete/{id}")
     String adminMessagesDelete(@PathVariable long id) {
-
         messageRepository.deleteById(id);
-
         return "redirect:/admin/messages";
+    }
+
+    public static <T> void addAttribute(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model, int totalPages, long totalElements, Page<T> page) {
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalElements);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
     }
 }

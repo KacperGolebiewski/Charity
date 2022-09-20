@@ -14,21 +14,21 @@
                     <form:form class="form--contact" modelAttribute="message">
                         <form:hidden path="id"/>
                         <div class=" form-group form-group--50">
-                            <spring:message code="text.firstName" var="placeholderName" />
+                            <spring:message code="text.firstName" var="placeholderName"/>
                             <form:input type="text" placeholder='${placeholderName}' path="firstName"/>
                             <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
                         </div>
                         <div class="form-group form-group--50">
-                            <spring:message code="text.lastName" var="placeholderlastName" />
+                            <spring:message code="text.lastName" var="placeholderlastName"/>
                             <form:input type="text" placeholder='${placeholderlastName}' path="lastName"/>
                             <span class="text-error">
                        <form:errors path="lastName"/>
                     </span>
                         </div>
                         <div class="form-group">
-                            <spring:message code="text.email" var="placeholderemail" />
+                            <spring:message code="text.email" var="placeholderemail"/>
                             <form:input type="text" placeholder='${placeholderemail}' path="email"/>
                             <span class="text-error">
                        <form:errors path="email"/>
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="form-group">
-                            <spring:message code="text.message" var="placeholderMessage" />
+                            <spring:message code="text.message" var="placeholderMessage"/>
                             <form:textarea type="text" placeholder='${placeholderMessage}' path="messageField"/>
                             <span class="text-error">
                        <form:errors path="messageField"/>

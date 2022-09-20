@@ -9,35 +9,35 @@
     <%--@elvariable id="request" type="pl.coderslab.charity.registration.RegistrationRequest"--%>
     <form:form modelAttribute="request" commandName="request">
         <div class="form-group">
-            <spring:message code="text.firstName" var="placeholderName" />
+            <spring:message code="text.firstName" var="placeholderName"/>
             <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
             <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.lastName" var="placeholderLastName" />
+            <spring:message code="text.lastName" var="placeholderLastName"/>
             <form:input type="text" path="lastName" placeholder='${placeholderLastName}'/>
             <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.email" var="placeholderEmail" />
+            <spring:message code="text.email" var="placeholderEmail"/>
             <form:input type="email" path="email" placeholder='${placeholderEmail}'/>
             <span class="text-error">
                        <form:errors path="email"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.password" var="placeholderPassword" />
+            <spring:message code="text.password" var="placeholderPassword"/>
             <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
             <span class="text-error">
                        <form:errors path="password"/>
                     </span>
         </div>
         <div class="form-group">
-            <spring:message code="text.repeatPassword" var="placeholderMatchingPassword" />
+            <spring:message code="text.repeatPassword" var="placeholderMatchingPassword"/>
             <form:input type="password" path="matchingPassword" placeholder='${placeholderMatchingPassword}'/>
             <span class="text-error">
                        <form:errors/>

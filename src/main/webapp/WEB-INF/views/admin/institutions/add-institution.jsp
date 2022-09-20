@@ -13,14 +13,14 @@
             <div class="card-body">
                 <form:form modelAttribute="institution">
                     <div class="form-group">
-                        <spring:message code="text.name" var="placeholderName" />
+                        <spring:message code="text.name" var="placeholderName"/>
                         <form:input type="text" path="name" placeholder='${placeholderName}'/>
                         <span class="text-error">
                        <form:errors path="name"/>
                     </span>
                     </div>
                     <div class="form-group">
-                        <spring:message code="text.description" var="placeholderDescription" />
+                        <spring:message code="text.description" var="placeholderDescription"/>
                         <form:textarea type="text" path="description" placeholder='${placeholderDescription}' rows="3"/>
                         <span class="text-error">
                        <form:errors path="description"/>
@@ -28,7 +28,8 @@
                     </div>
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.add"/>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message
+                                code="text.add"/>
                         </button>
                     </div>
                 </form:form>

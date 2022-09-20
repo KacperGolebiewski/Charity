@@ -20,7 +20,8 @@
                     </div>
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.save"/>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message
+                                code="text.save"/>
                         </button>
                     </div>
                 </form:form>

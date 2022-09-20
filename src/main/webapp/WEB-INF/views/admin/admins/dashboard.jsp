@@ -55,11 +55,13 @@
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-danger text-gradient px-3 mb-0 py-2"
                                            href="<c:url value="/admin/dashboard/confirm-delete/${admin.id}"/>"><i
-                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i><spring:message code="text.delete"/></a>
+                                                class="align-middle fa fa-trash px-2 text-sm me-2"></i><spring:message
+                                                code="text.delete"/></a>
                                         <a style="font-size: 1.5rem;!important;"
                                            class="btn btn-link text-dark px-3 mb-0 py-2"
                                            href="<c:url value="/admin/dashboard/edit/${admin.id}"/>"><i
-                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i><spring:message code="text.edit"/></a>
+                                                class="align-middle fa fa-edit px-2 text-sm me-2"></i><spring:message
+                                                code="text.edit"/></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -76,7 +78,8 @@
                         <c:when test="${currentPage > 1}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="/admin/dashboard/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message code="text.previous"/></a>
+                                   href="<c:url value="/admin/dashboard/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message
+                                        code="text.previous"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -101,7 +104,8 @@
                         <c:when test="${currentPage < totalPages}">
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<c:url value="/admin/dashboard/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message code="text.next"/></a>
+                                   href="<c:url value="/admin/dashboard/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message
+                                        code="text.next"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>

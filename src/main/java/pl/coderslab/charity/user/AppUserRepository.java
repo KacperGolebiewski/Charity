@@ -17,10 +17,8 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     Optional<AppUser> findByEmail(String email);
 
-    @Query(nativeQuery = true, value="select app_user_id from app_user join forgotten_password_token fpt on app_user.id = fpt.app_user_id where fpt.token = ?1")
+    @Query(nativeQuery = true, value = "select app_user_id from app_user join forgotten_password_token fpt on app_user.id = fpt.app_user_id where fpt.token = ?1")
     Long findByToken(String token);
-
-
 
 
     @Query("select t from AppUser t where t.appUserRole = ?1")

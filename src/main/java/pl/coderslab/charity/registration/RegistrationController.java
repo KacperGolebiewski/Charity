@@ -36,6 +36,4 @@ public class RegistrationController {
         return "log-reg/register-confirmation";
 
     }
-
-
 }

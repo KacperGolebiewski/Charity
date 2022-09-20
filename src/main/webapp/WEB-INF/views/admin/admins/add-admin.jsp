@@ -13,43 +13,44 @@
             <div class="card-body">
                 <form:form modelAttribute="request">
                     <div class="form-group">
-                        <spring:message code="text.firstName" var="placeholderName" />
+                        <spring:message code="text.firstName" var="placeholderName"/>
                         <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
                         <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
                     </div>
                     <div class="form-group">
-                        <spring:message code="text.lastName" var="placeholderLastName" />
+                        <spring:message code="text.lastName" var="placeholderLastName"/>
                         <form:input type="text" path="lastName" placeholder='${placeholderLastName}'/>
                         <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
                     </div>
                     <div class="form-group">
-                        <spring:message code="text.email" var="placeholderEmail" />
+                        <spring:message code="text.email" var="placeholderEmail"/>
                         <form:input type="email" path="email" placeholder='${placeholderEmail}'/>
                         <span class="text-error">
                        <form:errors path="email"/>
                     </span>
                     </div>
                     <div class="form-group">
-                        <spring:message code="text.password" var="placeholderPassword" />
+                        <spring:message code="text.password" var="placeholderPassword"/>
                         <form:input type="password" path="password" placeholder='${placeholderPassword}'/>
                         <span class="text-error">
                        <form:errors path="password"/>
                     </span>
                     </div>
                     <div class="form-group">
-                        <spring:message code="text.repeatPassword" var="placeholderRepeatPassword" />
-                        <form:input type="password" path="matchingPassword" placeholder='${placeholderRepeatPasswordPassword}'/>
+                        <spring:message code="text.repeatPassword" var="placeholderRepeatPassword"/>
+                        <form:input type="password" path="matchingPassword" placeholder='${placeholderRepeatPassword}'/>
                         <span class="text-error">
                        <form:errors/>
                     </span>
                     </div>
                     <div class="form-group form-group--buttons">
                         <button style="font-size: 1.5rem;!important;"
-                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message code="text.add"/>
+                                class="btn btn-link text-dark px-3 mb-0 py-2" type="submit"><spring:message
+                                code="text.add"/>
                         </button>
                     </div>
                 </form:form>

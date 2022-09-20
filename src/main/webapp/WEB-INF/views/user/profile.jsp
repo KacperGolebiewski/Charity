@@ -13,7 +13,8 @@
                 <h1 class="title"><spring:message code="text.firstName"/>: ${user.firstName}</h1>
                 <h1 class="subtitle"><spring:message code="text.lastName"/>: ${user.lastName}</h1>
                 <h1 class="subtitle"><spring:message code="text.email"/>: ${user.email}</h1>
-                <a href="<c:url value="/user/details/edit"/>" type="button" class="btn next-step"><spring:message code="text.edit"/></a>
+                <a href="<c:url value="/user/details/edit"/>" type="button" class="btn next-step"><spring:message
+                        code="text.edit"/></a>
             </div>
         </li>
     </ul>
