@@ -1,6 +1,7 @@
 package pl.coderslab.charity.security.config;
 
 
+import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,5 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         provider.setUserDetailsService(appUserServiceImpl);
         return provider;
+    }
+
+    @Bean
+    Faker faker () {
+        return new Faker();
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -39,14 +40,13 @@ public class AppUserController {
     }
 
     @PostMapping("/details/edit")
-    String updateDetailsSave(@Valid AppUser user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "user/profile-update";
+    String updateDetailsSave(AppUser user, @RequestParam String password, @RequestParam String repeatPassword) {
+        if (password.equals(repeatPassword)) {
+            String changedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+            appUserRepository.updatePassword(changedPassword,user.getEmail());
+        }else{
+            throw new IllegalStateException("Passwords don't match!");
         }
-        user.setFirstName(user.getFirstName());
-        user.setLastName(user.getLastName());
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        appUserRepository.save(user);
 
         return "redirect:/user/details";
     }

@@ -38,5 +38,11 @@ public class Message {
         created = LocalDateTime.now();
     }
 
-
+    public Message(String firstName, String lastName, String email, String messageField, LocalDateTime created) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.messageField = messageField;
+        this.created = created;
+    }
 }

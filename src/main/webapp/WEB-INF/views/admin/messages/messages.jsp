@@ -6,6 +6,50 @@
 <jsp:include page="../header-admin.jsp"/>
 <div class="body flex-grow-1 px-3 py-5" style="font-size: 1.5rem;!important;">
     <div class="container py-5">
+        <c:if test="${totalPages != 1}">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <c:choose>
+                        <c:when test="${currentPage > 1}">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="<c:url value="/admin/messages/${currentPage-1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message code="text.previous"/></a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item disabled">
+                                <a class="page-link"><spring:message code="text.previous"/></a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:forEach begin="1" end="${totalPages}" varStatus="status">
+                        <c:choose>
+                            <c:when test="${currentPage != status.index}">
+                                <li class="page-item"><a class="page-link"
+                                                         href="<c:url value="/admin/messages/${status.index}?sortField=${sortField}&sortDir=${sortDir}"/>">${status.index}</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled"><a class="page-link">${status.index}</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${currentPage < totalPages}">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="<c:url value="/admin/messages/${currentPage+1}?sortField=${sortField}&sortDir=${sortDir}"/>"><spring:message code="text.next"/></a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item disabled">
+                                <a class="page-link"><spring:message code="text.next"/></a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </nav>
+        </c:if>
         <div class="card mb-4">
             <div class="card-header"><strong><spring:message code="text.manageMessages"/></strong></div>
             <div class="card-body">

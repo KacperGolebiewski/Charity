@@ -15,14 +15,14 @@
             <form:input type="hidden" path="locked"/>
             <form:input type="hidden" path="enabled"/>
             <spring:message code="text.firstName" var="placeholderName" />
-            <form:input type="text" path="firstName" placeholder='${placeholderName}'/>
+            <form:input type="text" path="firstName" placeholder='${placeholderName}' disabled="true"/>
             <span class="text-error">
                        <form:errors path="firstName"/>
                     </span>
         </div>
         <div class="form-group">
             <spring:message code="text.lastName" var="placeholderlastName" />
-            <form:input type="text" path="lastName" placeholder='${placeholderlastName}'/>
+            <form:input type="text" path="lastName" placeholder='${placeholderlastName}' disabled="true"/>
             <span class="text-error">
                        <form:errors path="lastName"/>
                     </span>
@@ -33,6 +33,10 @@
             <span class="text-error">
                        <form:errors path="password"/>
                     </span>
+        </div>
+        <div class="form-group">
+            <spring:message code="text.repeatPassword" var="placeholderRepeatPassword" />
+            <input type="password" name="repeatPassword" placeholder='${placeholderRepeatPassword}'/>
         </div>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit"><spring:message code="text.send"/></button>

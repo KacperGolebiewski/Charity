@@ -21,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+
 public class Donation {
 
     @Id
@@ -70,5 +71,21 @@ public class Donation {
     @PreUpdate
     public void preUpdate() {
         updated = LocalDateTime.now();
+    }
+
+    public Donation(Integer quantity, List<Category> categories, Institution institution, String street, String city, String zipCode, String phoneNumber, LocalDate pickUpDate, LocalTime pickUpTime, String pickUpComment, AppUser user, boolean isDelivered, LocalDateTime created) {
+        this.quantity = quantity;
+        this.categories = categories;
+        this.institution = institution;
+        this.street = street;
+        this.city = city;
+        this.zipCode = zipCode;
+        this.phoneNumber = phoneNumber;
+        this.pickUpDate = pickUpDate;
+        this.pickUpTime = pickUpTime;
+        this.pickUpComment = pickUpComment;
+        this.user = user;
+        this.isDelivered = isDelivered;
+        this.created = created;
     }
 }

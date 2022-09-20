@@ -149,7 +149,7 @@ public class AdminController {
 
     @GetMapping("/users/{pageNo}")
     String adminUsers(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
-        int pageSize = 10;
+        int pageSize = 20;
         Page<AppUser> page = appUserService.findUsersPaginated(pageNo, pageSize, sortField, sortDir);
         List<AppUser> users = page.getContent();
 
@@ -383,7 +383,7 @@ public class AdminController {
 
     @GetMapping("/messages/{pageNo}")
     String adminMessages(@PathVariable int pageNo, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir, Model model) {
-        int pageSize = 10;
+        int pageSize = 20;
         Page<Message> page = messageService.findAllPaginated(pageNo, pageSize, sortField, sortDir);
         List<Message> messages = page.getContent();
         model.addAttribute("currentPage", pageNo);
