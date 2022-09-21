@@ -33,7 +33,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a SET a.password = ?1 WHERE a.email = ?2")
-    int updatePassword(String password, String email);
+    void updatePassword(String password, String email);
 
 
 }

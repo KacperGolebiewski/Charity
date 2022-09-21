@@ -1,6 +1,7 @@
 package pl.coderslab.charity.password;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
