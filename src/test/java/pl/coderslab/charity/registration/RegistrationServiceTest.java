@@ -2,16 +2,21 @@ package pl.coderslab.charity.registration;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.charity.email.EmailSender;
+import pl.coderslab.charity.registration.token.ConfirmationToken;
 import pl.coderslab.charity.registration.token.ConfirmationTokenService;
 import pl.coderslab.charity.user.AppUser;
+import pl.coderslab.charity.user.AppUserRepository;
 import pl.coderslab.charity.user.AppUserRole;
 import pl.coderslab.charity.user.AppUserServiceImpl;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -25,12 +30,16 @@ class RegistrationServiceTest {
 
     @Mock
     private EmailValidator emailValidator;
+    @Mock
+    private AppUserRepository  appUserRepository;
 
     @Mock
     private ConfirmationTokenService confirmationTokenService;
 
     @Mock
     private EmailSender emailSender;
+    @Captor
+    private ArgumentCaptor<ConfirmationToken> tokenArgumentCaptor;
 
     private RegistrationService underTest;
 
@@ -55,6 +64,7 @@ class RegistrationServiceTest {
         underTest.register(request);
         //Then
         then(emailSender).should().send(request.getEmail(), emailBody);
+        //TODO: check assertion
 
     }
 
@@ -91,6 +101,7 @@ class RegistrationServiceTest {
         underTest.registerAdmin(request);
         //Then
         then(emailSender).should().send(request.getEmail(), emailBody);
+        //TODO: check assertion
 
     }
 
@@ -116,10 +127,88 @@ class RegistrationServiceTest {
 
 
     @Test
+    @Transactional
     void itShouldConfirmToken() {
         //Given
+        String token = UUID.randomUUID().toString();
+        AppUser user = new AppUser();
+        user.setEmail("email@gmail.com");
+        user.setId(1L);
+        user.setFirstName("John");
+        user.setLastName("Smith");
+        user.setPassword("123");
+        String email = user.getEmail();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),user);
+        given(confirmationTokenService.getToken(token)).willReturn(Optional.of(confirmationToken));
+        //When
+        underTest.confirmToken(token);
+        //Then
+        then(confirmationTokenService).should().setConfirmedAt(token);
+        then(appUserService).should().enableAppUser(email);
+        //TODO: check assertion
+    }
+    @Test
+    void itShouldNotConfirmTokenWhenThereIsNoToken() {
+        //Given
+        String token = UUID.randomUUID().toString();
+        AppUser user = new AppUser();
+        user.setEmail("email@gmail.com");
+        user.setId(1L);
+        user.setFirstName("John");
+        user.setLastName("Smith");
+        user.setPassword("123");
+        given(confirmationTokenService.getToken(token)).willReturn(Optional.empty());
         //When
         //Then
+        assertThatThrownBy(()->underTest.confirmToken(token))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("token not found");
+
+    }
+
+    @Test
+    void itShouldNotConfirmTokenWhenTokenAlreadyConfirmed() {
+        //Given
+        String token = UUID.randomUUID().toString();
+        AppUser user = new AppUser();
+        user.setEmail("email@gmail.com");
+        user.setId(1L);
+        user.setFirstName("John");
+        user.setLastName("Smith");
+        user.setPassword("123");
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),user);
+        given(confirmationTokenService.getToken(token)).willReturn(Optional.of(confirmationToken));
+        confirmationToken.setConfirmedAt(LocalDateTime.now());
+
+
+        //When
+        //Then
+        assertThatThrownBy(()->underTest.confirmToken(token))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("email already confirmed");
+
+    }
+
+    @Test
+    void itShouldNotConfirmTokenWhenTokenExpired() {
+        //Given
+        String token = UUID.randomUUID().toString();
+        AppUser user = new AppUser();
+        user.setEmail("email@gmail.com");
+        user.setId(1L);
+        user.setFirstName("John");
+        user.setLastName("Smith");
+        user.setPassword("123");
+        ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),user);
+        given(confirmationTokenService.getToken(token)).willReturn(Optional.of(confirmationToken));
+        confirmationToken.setExpiresAt(LocalDateTime.now().minusHours(1));
+
+        //When
+        //Then
+        assertThatThrownBy(()->underTest.confirmToken(token))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("token expired");
 
     }
 }
