@@ -56,7 +56,7 @@ class AppUserServiceImplTest {
         user.setPassword("123");
         String email = user.getEmail();
 
-        // ... a token
+        // ... token
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
 
