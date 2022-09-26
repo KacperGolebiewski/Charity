@@ -146,6 +146,7 @@ class RegistrationServiceTest {
         //Then
         then(confirmationTokenService).should().setConfirmedAt(token);
         then(appUserService).should().enableAppUser(email);
+        assertThat(user.getEnabled()).isTrue();
         //TODO: check assertion
     }
     @Test
