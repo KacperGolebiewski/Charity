@@ -29,6 +29,7 @@ pass: admin
 * HTML
 * CSS
 * My SQL
+* JUnit
 
 ## Description
 Application where you can simulate to make a donation to institution of your choice. Your donation confirmation will be sent to you onto your mobile. As a regular user you can manage your donations, change status of delivery. As admin, you have dashboard to manage users (enable, block, delete etc.), admins, donations, 'Contact us' messages. You can not delete currently logged admin.
