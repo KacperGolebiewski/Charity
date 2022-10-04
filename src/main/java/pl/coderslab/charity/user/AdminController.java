@@ -86,7 +86,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/admins/add-admin";
         }
-        registrationService.registerAdmin(request);
+        registrationService.register(request, AppUserRole.ROLE_ADMIN);
         return "redirect:/admin/dashboard";
     }
 
@@ -163,7 +163,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/users/add-user";
         }
-        registrationService.register(request);
+        registrationService.register(request, AppUserRole.ROLE_USER);
         return "redirect:/admin/users";
     }
 

@@ -12,6 +12,7 @@ import pl.coderslab.charity.user.AppUserRole;
 import pl.coderslab.charity.user.AppUserServiceImpl;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Service
 @AllArgsConstructor
@@ -22,33 +23,23 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
 
-    public String register(RegistrationRequest request) {
+
+    public String register(RegistrationRequest request, AppUserRole appUserRole) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail) {
             throw new IllegalStateException("email not valid");
         }
-
-        String token = appUserServiceImpl.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_USER)
-        );
-
-        String link = "http://localhost:8080/register/confirm/" + token;
+        String token;
+        String link;
+        if(appUserRole.equals(AppUserRole.ROLE_ADMIN)) {
+            token = appUserServiceImpl.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_ADMIN));
+        }else {
+            token = appUserServiceImpl.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_USER));
+        }
+        link = "http://localhost:8080/register/confirm/" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
         return token;
-    }
-
-    public void registerAdmin(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.test(request.getEmail());
-
-        if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
-        }
-
-        String token = appUserServiceImpl.signUpUser(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.ROLE_ADMIN)
-        );
-
-        String link = "http://localhost:8080/register/confirm/" + token;
-        emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
     }
 
     @Transactional

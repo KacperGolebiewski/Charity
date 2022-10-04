@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.user.AppUserRole;
 
 import javax.validation.Valid;
 
@@ -26,7 +27,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "log-reg/register";
         }
-        registrationService.register(request);
+        registrationService.register(request, AppUserRole.ROLE_USER);
         return "redirect:/login";
     }
 
